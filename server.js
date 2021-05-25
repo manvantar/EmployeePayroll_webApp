@@ -31,6 +31,9 @@ app.get('/', (req, res) => {
     res.json({"message": "Welcome to EmployeePlayRoll application Backend"});
 });
 
+// Require Notes routes
+require('./app/routes/emp.routes.js')(app);
+
 // listen for requests
 const portNumber=3000;
 app.listen(portNumber, () => {
