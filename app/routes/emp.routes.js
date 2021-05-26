@@ -2,7 +2,7 @@ module.exports = (app) => {
     const employees = require('../controllers/emp.controller.js');
 
     // Create a new employee
-    app.post('/employees/', employees.create);
+    app.post('/employees/add/', employees.create);
  
     // Retrieve all employees
     app.get('/employees/', employees.findAll);
@@ -11,8 +11,8 @@ module.exports = (app) => {
     app.get('/employees/:employeeId', employees.findOne);
 
     // Update a employee with employeeId
-    app.put('/employees/:employeeId', employees.update);
+    app.put('/employees/update/:employeeId', employees.update);
 
     // Delete a employee with employeeId
-    app.delete('/employees/:employeeId', employees.delete);
+    app.delete('/employees/delete/:employeeId', employees.delete);
 }
