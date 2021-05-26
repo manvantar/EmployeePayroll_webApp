@@ -5,22 +5,24 @@ exports.create = (req, res) => {
     // Validate request
     var nonemptyflag = 0;
     var field = "";
-    if (!req.body.firstName) {
+    let nameRegex = new RegExp('^[A-Z]{1}[a-zA-Z\\s]{1,}$');
+    let emailRegex = new RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$');
+    let passRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})');
+    if (!nameRegex.test(req.body.firstName)) {
         nonemptyflag = 1; field = "firstname";
     }
-    else if (!req.body.lastName) {
+    else if (!nameRegex.test(req.body.lastName)) {
         nonemptyflag = 1; field = "lastname";
     }
-    else if (!req.body.emailId) {
+    else if (!emailRegex.test(req.body.emailId)) {
         nonemptyflag = 1; field = "emailId"
     }
-    else if (!req.body.password) {
+    else if (!passRegex.test(req.body.password)) {
         nonemptyflag = 1; field = "password"
     }
-
     if (nonemptyflag == 1) {
         return res.status(400).send({
-            message: "employee's " + field + " cannot be empty"
+            message: "employee's " + field + " is Invalid"
         });
     }
 
@@ -86,22 +88,24 @@ exports.update = (req, res) => {
     // Validate request
     var nonemptyflag = 0;
     var field = "";
-    if (!req.body.firstName) {
+    let nameRegex = new RegExp('^[A-Z]{1}[a-zA-Z\\s]{1,}$');
+    let emailRegex = new RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$');
+    let passRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})');
+    if (!nameRegex.test(req.body.firstName)) {
         nonemptyflag = 1; field = "firstname";
     }
-    else if (!req.body.lastName) {
+    else if (!nameRegex.test(req.body.lastName)) {
         nonemptyflag = 1; field = "lastname";
     }
-    else if (!req.body.emailId) {
+    else if (!emailRegex.test(req.body.emailId)) {
         nonemptyflag = 1; field = "emailId"
     }
-    else if (!req.body.password) {
+    else if (!passRegex.test(req.body.password)) {
         nonemptyflag = 1; field = "password"
     }
-
     if (nonemptyflag == 1) {
         return res.status(400).send({
-            message: "employee's " + field + " cannot be empty"
+            message: "employee's " + field + " is Invalid"
         });
     }
 
