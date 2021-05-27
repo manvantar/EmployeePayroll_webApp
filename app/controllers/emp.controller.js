@@ -1,48 +1,30 @@
-const Employee = require('../models/emp.models.js');
+const { create } = require("../services/emp.service.js");
+const { genSaltSync, hashSync} = require("bcrypt");
 
 // Create and Save a new Employee
 exports.create = (req, res) => {
     // Validate request
-    var nonemptyflag = 0;
-    var field = "";
-    let nameRegex = new RegExp('^[A-Z]{1}[a-zA-Z\\s]{1,}$');
-    let emailRegex = new RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$');
-    let passRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})');
-    if (!nameRegex.test(req.body.firstName)) {
-        nonemptyflag = 1; field = "firstname";
-    }
-    else if (!nameRegex.test(req.body.lastName)) {
-        nonemptyflag = 1; field = "lastname";
-    }
-    else if (!emailRegex.test(req.body.emailId)) {
-        nonemptyflag = 1; field = "emailId"
-    }
-    else if (!passRegex.test(req.body.password)) {
-        nonemptyflag = 1; field = "password"
-    }
-    if (nonemptyflag == 1) {
-        return res.status(400).send({
-            message: "employee's " + field + " is Invalid"
-        });
-    }
+    const body = req.body;
+    const salt = genSaltSync(10);
+    body.password = hashSync(body.password, salt);
 
-    // Create a Employee
-    const employee = new Employee({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        emailId: req.body.emailId,
-        password: req.body.password
+    create(body, (err, results) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json({
+                success: 0,
+                message: "Database Connection error"
+            }) 
+        }
+        return res.status(200).json({
+            success: 1,
+            data: results
+        });
     });
 
-    // Save Employee in the database
-    employee.save()
-        .then(data => {
-            res.send(data);
-        }).catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while creating the Employee."
-            });
-        });
+
+
+
 };
 
 // Retrieve and return all notes from the database.
