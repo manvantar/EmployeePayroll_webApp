@@ -6,7 +6,7 @@ const EmployeeSchema = mongoose.Schema({
     emailId: String,
     password: String
 }, {
-    timestamps: true
+    timestamps: false
 });
 
 module.exports = mongoose.model('Employee', EmployeeSchema)

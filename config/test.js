@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 function dbconnect(){
-
-    mongoose.Promise;
     const url='mongodb://localhost:27017/emp-payroll';
     mongoose.connect(url, {
     useNewUrlParser: true,

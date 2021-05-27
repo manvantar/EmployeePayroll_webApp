@@ -1,30 +1,18 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 
 // create express app
 const app = express();
 
+//Connect to DB
+const dbconnect = require('./config/database.config.js');
+dbconnect();
+
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }))
 
 // parse requests of content-type - application/json
-app.use(bodyParser.json())
+app.use(express.json())
 
-// Configuring the database
-const dbConfig = require('./config/database.config.js');
-const mongoose = require('mongoose');
-
-mongoose.Promise = global.Promise;
-
-// Connecting to the database
-mongoose.connect(dbConfig.url, {
-    useNewUrlParser: true, useUnifiedTopology: true
-}).then(() => {
-    console.log("Successfully connected to the database");    
-}).catch(err => {
-    console.log('Could not connect to the database. Exiting now...', err);
-    process.exit();
-});
 
 // define a simple route
 app.get('/', (req, res) => {
@@ -35,7 +23,7 @@ app.get('/', (req, res) => {
 require('./app/routes/emp.routes.js')(app);
 
 // listen for requests
-const portNumber=6050;
+const portNumber=6000;
 app.listen(portNumber, () => {
     console.log("Server is listening on port "+portNumber);
 });
