@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 require('./app/routes/routes.js')(app);
 
 // listen for requests
-const portNumber=6050;
+const portNumber=3010;
 app.listen(portNumber, () => {
     console.log("Server is listening on port "+portNumber);
 });
