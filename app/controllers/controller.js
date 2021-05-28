@@ -1,5 +1,6 @@
-const { create } = require("../services/emp.service.js");
+const { create } = require("../services/service.js");
 const { genSaltSync, hashSync} = require("bcrypt");
+
 
 // Create and Save a new Employee
 exports.create = (req, res) => {
@@ -8,7 +9,8 @@ exports.create = (req, res) => {
     const salt = genSaltSync(10);
     body.password = hashSync(body.password, salt);
 
-    create(body, (err, results) => {
+    
+    create(body, (err, res) => {
         if (err) {
             console.log(err);
             return res.status(500).json({
@@ -21,9 +23,6 @@ exports.create = (req, res) => {
             data: results
         });
     });
-
-
-
 
 };
 

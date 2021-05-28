@@ -1,18 +1,18 @@
 const express = require('express');
+const dbconnect = require('./config/database.js');
+
 
 // create express app
 const app = express();
 
 //Connect to DB
-const dbconnect = require('./config/database.config.js');
 dbconnect();
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }))
 
 // parse requests of content-type - application/json
-app.use(express.json())
-
+app.use(express.json())     
 
 // define a simple route
 app.get('/', (req, res) => {
@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 });
 
 // Require Notes routes
-require('./app/routes/emp.routes.js')(app);
+require('./app/routes/routes.js')(app);
 
 // listen for requests
 const portNumber=6050;
