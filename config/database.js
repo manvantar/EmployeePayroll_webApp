@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+require("dotenv").config();
 /*
  * function to connect mongoose database 
  * @returns connection
@@ -7,14 +7,13 @@ const mongoose = require('mongoose');
 function dbconnect(){
 
     mongoose.promise;
-    const url='mongodb://localhost:27017/emp-payroll';
-    mongoose.connect(url, {
+    mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
     });
 
     return mongoose.connection
-    .once('open', () => console.log('database Connected'))
+    .once('open', () => console.log('Mongo database Connected'))
     .on('error', (error)=> {
         console.log("Eroor found",error)
     });
