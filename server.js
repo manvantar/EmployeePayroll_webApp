@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 // Require Notes routes
-require('./app/routes/routes.js')(app);
+require('./app/routes/userRegistration')(app);
 
 // listen for requests
 const portNumber=3010;

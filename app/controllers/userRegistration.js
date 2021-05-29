@@ -1,7 +1,7 @@
-const { create } = require("../services/service.js");
+const { create } = require("../services/userRegistration.js");
 const { genSaltSync, hashSync } = require("bcrypt");
-const Employee = require('../models/models.js');
-const { authorise } = require('../validation/userValidation.js')
+const Employee = require('../models/userRegistration.js');
+const { authorise } = require('../validation/userRegistration.js')
 
 // Create and Save a new Employee
 exports.create = (req, res) => {

@@ -1,4 +1,4 @@
-const Employee = require('../models/models.js');
+const Employee = require('../models/userRegistration.js');
 
 module.exports = {
     create: (data, callback) => {

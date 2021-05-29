@@ -1,4 +1,4 @@
-const employees = require('../controllers/controller.js');
+const employees = require('../controllers/userRegistration.js');
 
 module.exports = (app) => {
     // Create a new employee
