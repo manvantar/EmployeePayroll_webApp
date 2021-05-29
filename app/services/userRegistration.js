@@ -1,7 +1,7 @@
 const Employee = require('../models/userRegistration.js');
 
 module.exports = {
-    create: (data, callback) => {
+    create(data, callback){
 
         // Create a Employee
         const employee = new Employee({
@@ -11,12 +11,12 @@ module.exports = {
             password: data.password
         });
         // Save Employee in the database
-        employee.save({},(error, data) => {
-            if(errors){
-                return callback(error,null);
+        employee.save({}, (error, data) => {
+            if (errors) {
+                return callback(error, null);
             }
             else
-                return 
+                return
 
         })
             .then(data => {
@@ -28,14 +28,8 @@ module.exports = {
             });
 
         ((error, results, fields) => {
-            
+
             return callback(null, results)
         });
-
-
-
-
     }
-
-
 }
