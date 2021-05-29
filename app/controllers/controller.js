@@ -1,13 +1,13 @@
 const { create } = require("../services/service.js");
 const { genSaltSync, hashSync } = require("bcrypt");
 const Employee = require('../models/models.js');
-const { authoriseData } = require('../validation/userValidation.js')
+const { authorise } = require('../validation/userValidation.js')
 
 // Create and Save a new Employee
 exports.create = (req, res) => {
    
     // Validate request
-    var validationResult = authoriseData.validate(req.body);
+    var validationResult = authorise.validate(req.body);
     if (validationResult.error) {
             return res.status(400).send({
             message: validationResult.error.details[0].message
