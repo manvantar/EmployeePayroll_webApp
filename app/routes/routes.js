@@ -1,7 +1,6 @@
 const employees = require('../controllers/controller.js');
 
 module.exports = (app) => {
-
     // Create a new employee
     app.post('/add', employees.create);
  
