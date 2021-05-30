@@ -33,5 +33,18 @@ class RegisterModel {
                 return callback(null, data)
         });
     }
+
+    /**
+    * @description Send all the Registration Data
+    * @return callback is used to callback Services with data or error message
+    */
+    findAll = (callback) => {
+        Employee.find({}, (error, data) => {
+            if (error)
+                return callback(error, null);
+            return callback(null, data);
+        });
+    }
+
 }
-module.exports= new RegisterModel();
+module.exports = new RegisterModel();

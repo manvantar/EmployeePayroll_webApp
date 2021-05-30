@@ -5,11 +5,11 @@ const service = require('../services/userRegistration.js');
 
 class Controll {
 
-   /**
-    * @description Create and save the new Registration Data
-    * @param req is request sent from http
-    * @param res is used to send the Response
-    */
+    /**
+     * @description Create and save the new Registration Data
+     * @param req is request sent from http
+     * @param res is used to send the Response
+     */
     create = (req, res) => {
 
         // Validate the data using Joi Validator if found error return status 400
@@ -25,34 +25,39 @@ class Controll {
         req.body.password = hashSync(req.body.password, salt);
 
         //Create request is sent to Create method of services
-        let userData= req.body;
+        let userData = req.body;
         service.create(userData, (error, resultdata) => {
-            if(error){
+            if (error) {
                 logger.error("Some error occured while creating greeting")
                 return res.status(500).send({
                     //success : registrationResponse.suceess = false,
-                    message : registrationResponse.message ="Some error occured while creating greeting"
+                    message: "Some error occured while creating greeting"
                 });
             }
-            
+
             res.send({
-                registereddata: resultdata,
+                data: resultdata,
                 message: "Employee Data Inserted successfully"
             })
         })
     }
 
-    // Retrieve and return all notes from the database.
-    findAll = function (req, res) {
-        Employee.find()
-            .then(employees => {
-                res.send(employees);
-            }).catch(err => {
-                res.status(500).send({
-                    message: err.message || "Some error occurred while retrieving notes."
+    /**
+     * @description find all the Registration Data
+     * @param req is request sent from http
+     * @param res is used to send the Response
+     */
+    findAll = (req, res)=> {
+        //findall request is sent to find all the data of Employee Data
+        service.findAll((error,EmployeeData) => {
+            if (error) {
+                logger.error("Some error occured while fetching Data")
+                return res.status(500).send({
+                    message: "Some error occured while fetching Data"
                 });
-            });
-
+            }
+            res.send(EmployeeData)
+        })
     };
 
     // Find a single employee with a employeeId
@@ -141,4 +146,4 @@ class Controll {
 
 }
 
-module.exports =  new Controll();
+module.exports = new Controll();

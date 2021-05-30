@@ -15,6 +15,17 @@ class RegisterService{
         })     
     }
 
+    /**
+    * @description Send all the Registration Data
+    * @return callback is used to callback Controller with data or error message
+    */
+    findAll=(callback) => {
+        employeeModel.findAll((error, data)=>{
+            if(error)
+                return callback(error,null);
+            return callback(null,data);
+        });
+    }
 }
 
 module.exports= new RegisterService();
