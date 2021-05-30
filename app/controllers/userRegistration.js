@@ -79,9 +79,38 @@ class Controll {
                     message: "Error retrieving employee with id " + req.params.employeeId
                 });
             }
-            res.send(userData);
+            if(userData)
+                res.send(userData);
+            else{
+                return res.status(404).send({
+                    message: "Employee not found with id " + req.params.employeeId
+                });
+            }
         })
     }
+
+    /**
+     * @description find one the Registration Data and Delete
+     * @param req is request sent from http
+     * @param res is used to send the Response
+     */
+     delete = (req, res) => {
+
+        //Request is sent to delete the Employee Data using EmployeeID
+        service.deleteById(req.params.employeeId,error=>{
+           if(error){
+               if (error.kind === 'ObjectId') {
+                   return res.status(404).send({
+                       message: "Employee not found with id " + req.params.employeeId
+                   });
+               }
+               return res.status(500).send({
+                   message: "Error retrieving employee with id " + req.params.employeeId
+               });
+           }
+           res.send({ message: "Employee deleted successfully!" });
+       })
+   };
 
     // Update a employee identified by the employeeId in the request
     update = (req, res) => {
@@ -120,29 +149,7 @@ class Controll {
                 });
             });
     };
-
-    // Delete a employee with the specified employeeId in the request
-    delete = (req, res) => {
-        Employee.findByIdAndRemove(req.params.employeeId)
-            .then(employee => {
-                if (!employee) {
-                    return res.status(404).send({
-                        message: "Employee not found with id " + req.params.employeeId
-                    });
-                }
-                res.send({ message: "Employee deleted successfully!" });
-            }).catch(err => {
-                if (err.kind === 'ObjectId' || err.name === 'NotFound') {
-                    return res.status(404).send({
-                        message: "Employee not found with id " + req.params.employeeId
-                    });
-                }
-                return res.status(500).send({
-                    message: "Could not delete employee with id " + req.params.employeeId
-                });
-            });
-    };
-
+    
 }
 
 module.exports = new Controll();

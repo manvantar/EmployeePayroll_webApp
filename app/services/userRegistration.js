@@ -38,6 +38,18 @@ class RegisterService{
             return callback(null,data);
         });
     }
+
+    /**
+    * @description delete Registration Data
+    * @return callback is used to callback Controller with or  without error message
+    */
+    deleteById=(userDataId,callback) => {
+        employeeModel.deleteById(userDataId,error=>{
+            if(error)
+                return callback(error);
+            return callback(null);
+        });
+    }
 }
 
 module.exports= new RegisterService();

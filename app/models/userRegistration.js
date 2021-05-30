@@ -46,7 +46,7 @@ class RegisterModel {
         });
     }
 
-     /**
+    /**
     * @description retrive all the Registration Data from MongoDB
     * @return callback is used to callback Services with data or error message
     */
@@ -55,6 +55,18 @@ class RegisterModel {
             if(error)
                 return callback(error,null);
             return callback(null,data)
+        })
+    }
+
+    /**
+    * @description delete the Registration Data from MongoDB
+    * @return callback is used to callback Services with or without error message
+    */
+    deleteById =(userDataID, callback)=>{
+        Employee.findByIdAndRemove(userDataID,error=>{
+            if(error)
+                return callback(error);
+            return callback(null)
         })
     }
 
