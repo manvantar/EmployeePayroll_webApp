@@ -35,7 +35,7 @@ class RegisterModel {
     }
 
     /**
-    * @description Send all the Registration Data
+    * @description retrive all the Registration Data from MongoDB
     * @return callback is used to callback Services with data or error message
     */
     findAll = (callback) => {
@@ -44,6 +44,18 @@ class RegisterModel {
                 return callback(error, null);
             return callback(null, data);
         });
+    }
+
+     /**
+    * @description retrive all the Registration Data from MongoDB
+    * @return callback is used to callback Services with data or error message
+    */
+    findById =(userDataID, callback)=>{
+        Employee.findById(userDataID,(error,data)=>{
+            if(error)
+                return callback(error,null);
+            return callback(null,data)
+        })
     }
 
 }

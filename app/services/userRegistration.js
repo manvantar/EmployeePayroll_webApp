@@ -16,11 +16,23 @@ class RegisterService{
     }
 
     /**
-    * @description Send all the Registration Data
+    * @description retrive all the Registration Data
     * @return callback is used to callback Controller with data or error message
     */
     findAll=(callback) => {
         employeeModel.findAll((error, data)=>{
+            if(error)
+                return callback(error,null);
+            return callback(null,data);
+        });
+    }
+
+    /**
+    * @description retrive Registration Data
+    * @return callback is used to callback Controller with data or error message
+    */
+     findById=(userDataId,callback) => {
+        employeeModel.findById(userDataId,(error, data)=>{
             if(error)
                 return callback(error,null);
             return callback(null,data);

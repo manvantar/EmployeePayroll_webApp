@@ -60,19 +60,17 @@ class Controll {
         })
     };
 
-    // Find a single employee with a employeeId
+    /**
+     * @description find one the Registration Data
+     * @param req is request sent from http
+     * @param res is used to send the Response
+     */
     findOne = (req, res) => {
 
-        Employee.findById(req.params.employeeId)
-            .then(employee => {
-                if (!employee) {
-                    return res.status(404).send({
-                        message: "Employee not found with id " + req.params.employeeId
-                    });
-                }
-                res.send(employee);
-            }).catch(err => {
-                if (err.kind === 'ObjectId') {
+        //findall request is sent to find the Employee Data using EmployeeID
+        service.findById(req.params.employeeId,(error,userData)=>{
+            if(error){
+                if (error.kind === 'ObjectId') {
                     return res.status(404).send({
                         message: "Employee not found with id " + req.params.employeeId
                     });
@@ -80,9 +78,10 @@ class Controll {
                 return res.status(500).send({
                     message: "Error retrieving employee with id " + req.params.employeeId
                 });
-            });
-
-    };
+            }
+            res.send(userData);
+        })
+    }
 
     // Update a employee identified by the employeeId in the request
     update = (req, res) => {
