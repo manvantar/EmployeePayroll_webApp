@@ -50,6 +50,21 @@ class RegisterService{
             return callback(null);
         });
     }
+
+    /**
+    * @description Create method of Model is called to save the new Registration Data
+    * @param userdData is data sent from Controller
+    * @return callback is used to callback Controller
+    */
+     updateByID= (userId,newUserData, callback)=> {
+        employeeModel.updateById(userId,newUserData,(error,data) => {
+            if(error)
+                return callback(error,null);
+            return callback(null,data);
+        })     
+    }
+
+    
 }
 
 module.exports= new RegisterService();
