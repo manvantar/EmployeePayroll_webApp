@@ -1,13 +1,18 @@
 const { genSaltSync, hashSync } = require("bcrypt");
 const Employee = require('../models/userRegistration.js');
-const { authorise } = require('../validation/userRegistration.js')
+const { authorise } = require('../validation/userRegistration.js');
+const service = require('../services/userRegistration.js');
 
 class Controll {
 
-    // Create and Save a new Employee
+   /**
+    * @description Create and save the new Registration Data
+    * @param req is request sent from http
+    * @param res is used to send the Response
+    */
     create = (req, res) => {
 
-        // request
+        // Validate the data using Joi Validator if found error return status 400
         var validationResult = authorise.validate(req.body);
         if (validationResult.error) {
             return res.status(400).send({
@@ -15,27 +20,27 @@ class Controll {
             });
         }
 
-        const salt = genSaltSync(10);
+        //encrypting the Password 
+        const salt = genSaltSync(5);
         req.body.password = hashSync(req.body.password, salt);
 
-        // Create a Employee
-        const employee = new Employee({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            emailId: req.body.emailId,
-            password: req.body.password
-        });
-
-        // Save Employee in the database
-        employee.save()
-            .then(data => {
-                res.send(data);
-            }).catch(err => {
-                res.status(500).send({
-                    message: err.message || "Some error occurred while creating the Employee."
+        //Create request is sent to Create method of services
+        let userData= req.body;
+        service.create(userData, (error, resultdata) => {
+            if(error){
+                logger.error("Some error occured while creating greeting")
+                return res.status(500).send({
+                    //success : registrationResponse.suceess = false,
+                    message : registrationResponse.message ="Some error occured while creating greeting"
                 });
-            });
-    };
+            }
+            
+            res.send({
+                registereddata: resultdata,
+                message: "Employee Data Inserted successfully"
+            })
+        })
+    }
 
     // Retrieve and return all notes from the database.
     findAll = function (req, res) {

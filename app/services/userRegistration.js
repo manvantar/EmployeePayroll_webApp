@@ -1,35 +1,20 @@
-const Employee = require('../models/userRegistration.js');
+const employeeModel = require('../models/userRegistration.js');
 
-module.exports = {
-    create(data, callback){
+class RegisterService{
 
-        // Create a Employee
-        const employee = new Employee({
-            firstName: data.firstName,
-            lastName: data.lastName,
-            emailId: data.emailId,
-            password: data.password
-        });
-        // Save Employee in the database
-        employee.save({}, (error, data) => {
-            if (errors) {
-                return callback(error, null);
-            }
-            else
-                return
-
-        })
-            .then(data => {
-                res.send(data);
-            }).catch(err => {
-                res.status(500).send({
-                    message: err.message || "Some error occurred while creating the Employee."
-                });
-            });
-
-        ((error, results, fields) => {
-
-            return callback(null, results)
-        });
+    /**
+    * @description Create method of Model is called to save the new Registration Data
+    * @param userdData is data sent from Controller
+    * @return callback is used to callback Controller
+    */
+    create= (userData, callback)=> {
+        employeeModel.create( userData,(error,data) => {
+            if(error)
+                return callback(error,null);
+            return callback(null,data);
+        })     
     }
+
 }
+
+module.exports= new RegisterService();
