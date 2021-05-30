@@ -50,11 +50,11 @@ class RegisterModel {
     * @description retrive all the Registration Data from MongoDB
     * @return callback is used to callback Services with data or error message
     */
-    findById =(userDataID, callback)=>{
-        Employee.findById(userDataID,(error,data)=>{
-            if(error)
-                return callback(error,null);
-            return callback(null,data)
+    findById = (userDataID, callback) => {
+        Employee.findById(userDataID, (error, data) => {
+            if (error)
+                return callback(error, null);
+            return callback(null, data)
         })
     }
 
@@ -62,13 +62,32 @@ class RegisterModel {
     * @description delete the Registration Data from MongoDB
     * @return callback is used to callback Services with or without error message
     */
-    deleteById =(userDataID, callback)=>{
-        Employee.findByIdAndRemove(userDataID,error=>{
-            if(error)
+    deleteById = (userDataID, callback) => {
+        Employee.findByIdAndRemove(userDataID, error => {
+            if (error)
                 return callback(error);
             return callback(null)
         })
     }
 
+    /**
+    * @description Update the Registration Data by Id
+    * @param oldregistration_Id, New_UserData
+    * @return callback is used to callback Services with or without error message
+    */
+    updateById = (userId, newUserData, callback) => {
+        Employee.findByIdAndUpdate(userId, {
+            firstName: newUserData.firstName,
+            lastName: newUserData.lastName,
+            email: newUserData.email,
+            password: newUserData.password
+        }, { new: true },(error,data) => {
+            if (error) {
+                return callback(error, null);
+            }
+            return callback(null, data);
+        }); 
+    }
 }
+
 module.exports = new RegisterModel();
