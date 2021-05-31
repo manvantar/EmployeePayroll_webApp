@@ -1,13 +1,18 @@
 const employeeModel = require('../models/employee.js');
+const { genSaltSync, hashSync } = require("bcrypt");
 
 class RegisterService{
 
     /**
-    * @description Create method of Model is called to save the new Registration Data
+    * @description Create method of Model is called to save the new Registration Data, Which also encrypts the password
     * @param userdData is data sent from Controller
     * @return callback is used to callback Controller
     */
     create= (userData, callback)=> {
+        
+        const salt = genSaltSync(5);
+        userData.password = hashSync(userData.password, salt);
+
         employeeModel.create( userData,(error,data) => {
             if(error)
                 return callback(error,null);
@@ -52,11 +57,15 @@ class RegisterService{
     }
 
     /**
-    * @description Create method of Model is called to save the new Registration Data
+    * @description Create method of Model is called to save the new Registration Data  Which also encrypts the password
     * @param userdData is data sent from Controller
     * @return callback is used to callback Controller
     */
      updateByID= (userId,newUserData, callback)=> {
+        
+        const salt = genSaltSync(5);
+        newUserData.password = hashSync(newUserData.password, salt);  
+
         employeeModel.updateById(userId,newUserData,(error,data) => {
             if(error)
                 return callback(error,null);
