@@ -8,11 +8,9 @@ class RegisterService{
     * @param userdData is data sent from Controller
     * @return callback is used to callback Controller
     */
-    create= (userData, callback)=> {
-        
+    create= (userData, callback)=> {     
         const salt = genSaltSync(5);
         userData.password = hashSync(userData.password, salt);
-
         employeeModel.create( userData,(error,data) => {
             if(error)
                 return callback(error,null);
@@ -61,18 +59,15 @@ class RegisterService{
     * @param userdData is data sent from Controller
     * @return callback is used to callback Controller
     */
-     updateByID= (userId,newUserData, callback)=> {
-        
+     updateByID= (userId,newUserData, callback)=> {        
         const salt = genSaltSync(5);
         newUserData.password = hashSync(newUserData.password, salt);  
-
         employeeModel.updateById(userId,newUserData,(error,data) => {
             if(error)
                 return callback(error,null);
             return callback(null,data);
         })     
     }
-
     
 }
 
