@@ -4,7 +4,7 @@ const employeeService = require('../services/employee.js');
 class Controll {
 
     /**
-     * @description Create and save the new Registration Data
+     * @description Create and save the new Registration Data after validation
      * @param req is request sent from http
      * @param res is used to send the Response
      */
@@ -97,7 +97,7 @@ class Controll {
     };
 
     /**
-      * @description update Registration Data by using Id
+      * @description update Registration Data by using Id after the data validation
       * @param req is request sent from http
       * @param res is used to send the Response
       */
