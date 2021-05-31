@@ -25,7 +25,6 @@ class RegisterModel {
             emailId: userdata.emailId,
             password: userdata.password
         });
-        //save method of mongoose is used to save the data in DB
         employee.save({}, (error, data) => {
             if (error)
                 return callback(error, null)
