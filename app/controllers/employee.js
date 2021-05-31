@@ -1,7 +1,6 @@
 const { genSaltSync, hashSync } = require("bcrypt");
-const Employee = require('../models/userRegistration.js');
-const { authorise } = require('../validation/userRegistration.js');
-const registerService = require('../services/userRegistration.js');
+const { authorise } = require('../validation/employee.js');
+const registerService = require('../services/employee.js');
 
 class Controll {
 

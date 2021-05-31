@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 // Require Notes routes
-require('./app/routes/userRegistration')(app);
+require('./app/routes/employee')(app);
 
 // listen for requests
 app.listen(process.env.SERVER_PORT, () => {

@@ -71,9 +71,9 @@ class RegisterModel {
     }
 
     /**
-    * @description Update the Registration Data by Id
+    * @description Update the Registration_Data by Id
     * @param oldregistration_Id, New_UserData
-    * @return callback is used to callback Services with or without error message
+    * @return callback is used to callback Services with data or error message
     */
     updateById = (userId, newUserData, callback) => {
         Employee.findByIdAndUpdate(userId, {

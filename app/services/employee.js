@@ -1,4 +1,4 @@
-const employeeModel = require('../models/userRegistration.js');
+const employeeModel = require('../models/employee.js');
 
 class RegisterService{
 

@@ -1,4 +1,4 @@
-const controll = require('../controllers/userRegistration.js');
+const controll = require('../controllers/employee.js');
 
 //let {employeesObject }= new employees;
 module.exports = (app) => {
