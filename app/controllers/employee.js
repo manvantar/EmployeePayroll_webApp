@@ -4,7 +4,7 @@ const employeeService = require('../services/employee.js');
 class Controll {
 
     /**
-     * @description Create and save the new Registration Data after validation
+     * @description Create and save the new Employee Data after validation
      * @param req is request sent from http
      * @param res is used to send the Response
      */
@@ -32,7 +32,7 @@ class Controll {
     }
 
     /**
-     * @description find all the Registration Data
+     * @description find all the Employee Data
      * @param req is request sent from http
      * @param res is used to send the Response
      */
@@ -49,7 +49,7 @@ class Controll {
     };
 
     /**
-     * @description find one the Registration Data
+     * @description find one the Employee Data
      * @param req is request sent from http
      * @param res is used to send the Response
      */
@@ -76,7 +76,7 @@ class Controll {
     }
 
     /**
-     * @description find one the Registration Data and Delete
+     * @description find one the Employee Data and Delete
      * @param req is request sent from http
      * @param res is used to send the Response
      */
@@ -97,11 +97,10 @@ class Controll {
     };
 
     /**
-      * @description update Registration Data by using Id after the data validation
+      * @description update Employee Data by using Id after the data validation
       * @param req is request sent from http
       * @param res is used to send the Response
       */
-    // Update a employee identified by the employeeId in the request
     update = (req, res) => {
         var validationResult = authorise.validate(req.body);
         if (validationResult.error) {

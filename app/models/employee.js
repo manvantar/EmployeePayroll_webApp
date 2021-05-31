@@ -14,7 +14,7 @@ const Employee = mongoose.model('Employee', EmployeeSchema)
 class RegisterModel {
 
     /**
-    * @description Create method is to save the new Registration Data
+    * @description Create method is to save the new Employee Data
     * @param userdData is data sent from Services
     * @return callback is used to callback Services includes error message or data
     */
@@ -34,7 +34,7 @@ class RegisterModel {
     }
 
     /**
-    * @description retrive all the Registration Data from MongoDB
+    * @description retrive all the Employee Data from MongoDB
     * @return callback is used to callback Services with data or error message
     */
     findAll = (callback) => {
@@ -46,7 +46,7 @@ class RegisterModel {
     }
 
     /**
-    * @description retrive all the Registration Data from MongoDB
+    * @description retrive all the Employee Data from MongoDB
     * @return callback is used to callback Services with data or error message
     */
     findById = (userDataID, callback) => {
@@ -58,7 +58,7 @@ class RegisterModel {
     }
 
     /**
-    * @description delete the Registration Data from MongoDB
+    * @description delete the Employee Data from MongoDB
     * @return callback is used to callback Services with or without error message
     */
     deleteById = (userDataID, callback) => {

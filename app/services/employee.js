@@ -4,7 +4,7 @@ const { genSaltSync, hashSync } = require("bcrypt");
 class RegisterService{
 
     /**
-    * @description Create method of Model is called to save the new Registration Data, Which also encrypts the password
+    * @description Create method of Model is called to save the new Employee Data, Which also encrypts the password
     * @param userdData is data sent from Controller
     * @return callback is used to callback Controller
     */
@@ -19,7 +19,7 @@ class RegisterService{
     }
 
     /**
-    * @description retrive all the Registration Data
+    * @description retrive all the Employee Data
     * @return callback is used to callback Controller with data or error message
     */
     findAll=(callback) => {
@@ -31,7 +31,7 @@ class RegisterService{
     }
 
     /**
-    * @description retrive Registration Data
+    * @description retrive Employee Data
     * @return callback is used to callback Controller with data or error message
     */
      findById=(userDataId,callback) => {
@@ -43,7 +43,7 @@ class RegisterService{
     }
 
     /**
-    * @description delete Registration Data
+    * @description delete Employee Data
     * @return callback is used to callback Controller with or  without error message
     */
     deleteById=(userDataId,callback) => {
@@ -55,7 +55,7 @@ class RegisterService{
     }
 
     /**
-    * @description Create method of Model is called to save the new Registration Data  Which also encrypts the password
+    * @description Create method of Model is called to save the new Employee Data  Which also encrypts the password
     * @param userdData is data sent from Controller
     * @return callback is used to callback Controller
     */
