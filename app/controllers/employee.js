@@ -20,7 +20,6 @@ class Controll {
             if (error) {
                 logger.error("Some error occured while creating greeting")
                 return res.status(500).send({
-                    //success : registrationResponse.suceess = false,
                     message: "Some error occured while creating greeting"
                 });
             }
