@@ -59,6 +59,17 @@ class RegisterService {
         })
     }
 
+     /**
+    * @description checkLogindetails d
+    * @param loginData having emailId and password
+    * @return callback is used to callback controller with data or error message
+    */
+    checkLoginDetails=(loginData,callback)=>{     
+        employeeModel.checkLoginDetails(loginData, (error, data) => {
+            return (error) ? callback(error, null) : callback(null,data);
+        });
+    }
+     
 }
 
 module.exports = new RegisterService();

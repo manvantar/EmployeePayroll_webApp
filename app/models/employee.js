@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 /**
  * @description Create Schema model of Employee Data with Schema level data valiadtion
- */   
+ */
 const EmployeeSchema = mongoose.Schema({
     firstName: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ },
     lastName: { type: String, required: true, validate: /^[a-zA-Z ]{1,30}$/ },
-    emailId: { type: String, required: true, validate: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$/ },
+    emailId: { type: String, required: true, createIndexes: true, validate: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$/ },
     password: { type: String, required: true }
 }, {
     timestamps: false
@@ -77,6 +78,24 @@ class RegisterModel {
         }, { new: true }, (error, data) => {
             return (error) ? callback(error, null) : callback(null, data);
         });
+    }
+
+    /**
+    * @description checkLogindetails d
+    * @param loginData having emailId and password
+    * @return callback is used to callback Services with data or error message
+    */
+    checkLoginDetails = (loginData, callback) => {
+        Employee.findOne({ "emailId": loginData.emailId }, (error, data) => {
+            if(error){
+                return callback(error, null)
+            }
+            if (!data) {
+                return callback("UserId doesn't exist", null)
+            }         
+            return (bcrypt.compareSync(loginData.password, data.password)) ? callback(null, "Login Successfull") : callback("Invalid Credentials", null);
+        }
+        )
     }
 }
 

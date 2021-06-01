@@ -18,7 +18,7 @@ class Controll {
         let userData = req.body;
         employeeService.create(userData, (error, resultdata) => {
             if (error) {
-                    return res.status(500).send({
+                return res.status(500).send({
                     message: "Error occured while creating Employee",
                     error: error.message
                 });
@@ -132,9 +132,18 @@ class Controll {
      * @param req is request sent from http having emailId and Password
      * @param res is used to send the Response
      */
-     login = (req, res) => {
-        res.send(req.body)
-     }
+    login = (req, res) => {
+        employeeService.checkLoginDetails(req.body, (error,data) => {
+            if (error) {
+                return res.status(404).send({
+                    message: error
+                });
+            }
+            res.send({
+               message:data
+            })
+        })
+    }
 }
 
 module.exports = new Controll();
