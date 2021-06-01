@@ -127,6 +127,14 @@ class Controll {
         })
     };
 
+    /**
+     * @description to login the Employee Data
+     * @param req is request sent from http having emailId and Password
+     * @param res is used to send the Response
+     */
+     login = (req, res) => {
+        res.send(req.body)
+     }
 }
 
 module.exports = new Controll();

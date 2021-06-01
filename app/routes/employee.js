@@ -16,4 +16,6 @@ module.exports = (app) => {
 
     // Delete a employee with employeeId
     app.delete('/delete/:employeeId', controllerEmployee.delete);
+
+    app.get('/login', controllerEmployee.login);
 }
