@@ -18,9 +18,9 @@ class Controll {
         let userData = req.body;
         employeeService.create(userData, (error, resultdata) => {
             if (error) {
-                logger.error("Some error occured while creating greeting")
-                return res.status(500).send({
-                    message: "Some error occured while creating greeting"
+                    return res.status(500).send({
+                    message: "Error occured while creating Employee",
+                    error: error.message
                 });
             }
             res.send({
