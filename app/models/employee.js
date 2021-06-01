@@ -26,10 +26,7 @@ class RegisterModel {
             password: userdata.password
         });
         employee.save({}, (error, data) => {
-            if (error)
-                return callback(error, null)
-            else
-                return callback(null, data)
+            return (error) ? callback(error, null) : callback(null, data);
         });
     }
 
@@ -39,9 +36,7 @@ class RegisterModel {
     */
     findAll = (callback) => {
         Employee.find({}, (error, data) => {
-            if (error)
-                return callback(error, null);
-            return callback(null, data);
+            return (error) ? callback(error, null) : callback(null, data);
         });
     }
 
@@ -51,9 +46,7 @@ class RegisterModel {
     */
     findById = (userDataID, callback) => {
         Employee.findById(userDataID, (error, data) => {
-            if (error)
-                return callback(error, null);
-            return callback(null, data)
+            return (error) ? callback(error, null) : callback(null, data);
         })
     }
 
@@ -63,9 +56,7 @@ class RegisterModel {
     */
     deleteById = (userDataID, callback) => {
         Employee.findByIdAndRemove(userDataID, error => {
-            if (error)
-                return callback(error);
-            return callback(null)
+            return (error) ? callback(error) : callback(null);
         })
     }
 
@@ -80,12 +71,9 @@ class RegisterModel {
             lastName: newUserData.lastName,
             email: newUserData.email,
             password: newUserData.password
-        }, { new: true },(error,data) => {
-            if (error) {
-                return callback(error, null);
-            }
-            return callback(null, data);
-        }); 
+        }, { new: true }, (error, data) => {
+            return (error) ? callback(error, null) : callback(null, data);
+        });
     }
 }
 
