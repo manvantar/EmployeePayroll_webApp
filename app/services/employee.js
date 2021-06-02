@@ -20,8 +20,8 @@ class RegisterService {
     * @description retrive all the Employee Data
     * @return callback is used to callback Controller with data or error message
     */
-    findAll = (callback) => {
-        employeeModel.findAll((error, data) => {
+    findAllEmployees = (callback) => {
+        employeeModel.findAllEmployees((error, data) => {
             return (error) ? callback(error, null) : callback(null, data);
         });
     }
@@ -30,8 +30,8 @@ class RegisterService {
     * @description retrive Employee Data
     * @return callback is used to callback Controller with data or error message
     */
-    findById = (userDataId, callback) => {
-        employeeModel.findById(userDataId, (error, data) => {
+    findDataId = (userDataId, callback) => {
+        employeeModel.findDataId(userDataId, (error, data) => {
             return (error) ? callback(error, null) : callback(null, data);
         });
     }
@@ -40,8 +40,8 @@ class RegisterService {
     * @description delete Employee Data
     * @return callback is used to callback Controller with or  without error message
     */
-    deleteById = (userDataId, callback) => {
-        employeeModel.deleteById(userDataId, error => {
+    deleteDataUsingId = (userDataId, callback) => {
+        employeeModel.deleteDataUsingId(userDataId, error => {
             return (error) ? callback(error) : callback(null);
         });
     }

@@ -35,8 +35,8 @@ class Controll {
      * @param req is request sent from http
      * @param res is used to send the Response
      */
-    findAll = (req, res) => {
-        employeeService.findAll((error, EmployeeData) => {
+     findAllEmployees = (req, res) => {
+        employeeService.findAllEmployees((error, EmployeeData) => {
             if (error) {
                 logger.error("Some error occured while fetching Data")
                 return res.status(500).send({
@@ -53,7 +53,7 @@ class Controll {
      * @param res is used to send the Response
      */
     findOne = (req, res) => {
-        employeeService.findById(req.params.employeeId, (error, userData) => {
+        employeeService.findDataId(req.params.employeeId, (error, userData) => {
             if (error) {
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
@@ -80,7 +80,7 @@ class Controll {
      * @param res is used to send the Response
      */
     delete = (req, res) => {
-        employeeService.deleteById(req.params.employeeId, error => {
+        employeeService.deleteDataUsingId(req.params.employeeId, error => {
             if (error) {
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
@@ -110,7 +110,6 @@ class Controll {
         let userData = req.body;
         employeeService.updateByID(req.params.employeeId, userData, (error, resultData) => {
             if (error) {
-                logger.error("Some error occured while creating greeting")
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
                         message: "Employee not found with id " + req.params.employeeId

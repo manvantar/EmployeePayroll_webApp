@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 const EmployeeSchema = mongoose.Schema({
     firstName: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ },
     lastName: { type: String, required: true, validate: /^[a-zA-Z ]{1,30}$/ },
-    emailId: { type: String, required: true, createIndexes: true, validate: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$/ },
+    emailId: { type: String, required: true, validate: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$/ },
     password: { type: String, required: true }
 }, {
     timestamps: false
@@ -38,7 +38,7 @@ class RegisterModel {
     * @description retrive all the Employee Data from MongoDB
     * @return callback is used to callback Services with data or error message
     */
-    findAll = (callback) => {
+     findAllEmployees = (callback) => {
         Employee.find({}, (error, data) => {
             return (error) ? callback(error, null) : callback(null, data);
         });
@@ -48,7 +48,7 @@ class RegisterModel {
     * @description retrive all the Employee Data from MongoDB
     * @return callback is used to callback Services with data or error message
     */
-    findById = (userDataID, callback) => {
+     findDataId = (userDataID, callback) => {
         Employee.findById(userDataID, (error, data) => {
             return (error) ? callback(error, null) : callback(null, data);
         })
@@ -58,7 +58,7 @@ class RegisterModel {
     * @description delete the Employee Data from MongoDB
     * @return callback is used to callback Services with or without error message
     */
-    deleteById = (userDataID, callback) => {
+     deleteDataUsingId = (userDataID, callback) => {
         Employee.findByIdAndRemove(userDataID, error => {
             return (error) ? callback(error) : callback(null);
         })
@@ -90,7 +90,7 @@ class RegisterModel {
             if(error){
                 return callback(error, null)
             }
-            if (!data) {
+            else if (!data) {
                 return callback("UserId doesn't exist", null)
             }         
             return (bcrypt.compareSync(loginData.password, data.password)) ? callback(null, "Login Successfull") : callback("Invalid Credentials", null);
