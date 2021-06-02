@@ -21,6 +21,7 @@ class RegisterService {
 
     /**
     * @description retrive all the Employee Data
+    * @param callback is data sent from Controller
     * @return callback is used to callback Controller with data or error message
     */
     findAllEmployees = (callback) => {
@@ -31,6 +32,7 @@ class RegisterService {
 
     /**
     * @description retrive Employee Data
+    * @param objectId and callback is data sent from Controller
     * @return callback is used to callback Controller with data or error message
     */
     findDataId = (employeObjectId, callback) => {
@@ -41,6 +43,7 @@ class RegisterService {
 
     /**
     * @description delete Employee Data
+    * @param userdDataId and callback is data sent from Controller
     * @return callback is used to callback Controller with or  without error message
     */
     deleteDataUsingId = (userDataId, callback) => {

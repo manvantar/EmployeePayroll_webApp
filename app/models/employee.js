@@ -36,6 +36,7 @@ class RegisterModel {
 
     /**
     * @description retrive all the Employee Data from MongoDB
+    * @param callback is data sent from Services
     * @return callback is used to callback Services with data or error message
     */
     findAllEmployees = (callback) => {
@@ -46,6 +47,7 @@ class RegisterModel {
 
     /**
     * @description retrive all the Employee Data from MongoDB
+    * @param objectId, callback is data sent from Services
     * @return callback is used to callback Services with data or error message
     */
     findDataId = (employeObjectId, callback) => {
@@ -56,6 +58,7 @@ class RegisterModel {
 
     /**
     * @description delete the Employee Data from MongoDB
+    * @param objectId, callback is data sent from Services
     * @return callback is used to callback Services with or without error message
     */
     deleteDataUsingId = (userDataID, callback) => {
@@ -66,7 +69,7 @@ class RegisterModel {
 
     /**
     * @description Update the Registration_Data by Id
-    * @param oldregistration_Id, New_UserData
+    * @param oldregistration_Id, New_UserData and callback
     * @return callback is used to callback Services with data or error message
     */
     updateById = (userId, newUserData, callback) => {
