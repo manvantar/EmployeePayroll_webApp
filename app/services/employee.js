@@ -67,13 +67,13 @@ class RegisterService {
    * @param loginData having emailId and password
    * @return callback is used to callback controller with JsonWebToken or error message
    */
-    checkLoginDetails = (loginData, callback) => {
-        employeeModel.checkLoginDetails(loginData, (error, data) => {
+    checkLoginDetails = (credentials, callback) => {
+        employeeModel.checkLoginDetails(credentials, (error, data) => {
             let result=null;
             if (error) {
                 return callback(error, null);
             }
-            else if (result=bcrypt.compareSync(loginData.password, data.password)) {
+            else if (result=bcrypt.compareSync(credentials.password, data.password)) {
                 data.password = undefined;
                 const jsontoken = sign({ result: data }, process.env.JWT_KEY, { expiresIn: "1h" });
                 return callback(null, jsontoken);

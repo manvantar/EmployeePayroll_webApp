@@ -53,15 +53,16 @@ class Controll {
      * @param res is used to send the Response
      */
     findOne = (req, res) => {
-        employeeService.findDataId(req.params.employeeId, (error, userData) => {
+        let employeId=req.params.employeeId;
+        employeeService.findDataId(employeId, (error, userData) => {
             if (error) {
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
-                        message: "Employee not found with id " + req.params.employeeId
+                        message: "Employee not found with id " + employeId
                     });
                 }
                 return res.status(500).send({
-                    message: "Error retrieving employee with id " + req.params.employeeId
+                    message: "Error retrieving employee with id " + employeId
                 });
             }
             if (userData)
@@ -80,15 +81,16 @@ class Controll {
      * @param res is used to send the Response
      */
     delete = (req, res) => {
-        employeeService.deleteDataUsingId(req.params.employeeId, error => {
+        let employeId=req.params.employeeId;
+        employeeService.deleteDataUsingId(employeId, error => {
             if (error) {
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
-                        message: "Employee not found with id " + req.params.employeeId
+                        message: "Employee not found with id " + employeId
                     });
                 }
                 return res.status(500).send({
-                    message: "Error retrieving employee with id " + req.params.employeeId
+                    message: "Error retrieving employee with id " + employeId
                 });
             }
             res.send({ message: "Employee deleted successfully!" });
@@ -108,15 +110,16 @@ class Controll {
             });
         }
         let userData = req.body;
-        employeeService.updateByID(req.params.employeeId, userData, (error, resultData) => {
+        let existingUserId=req.params.employeeId;
+        employeeService.updateByID(existingUserId, userData, (error, resultData) => {
             if (error) {
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
-                        message: "Employee not found with id " + req.params.employeeId
+                        message: "Employee not found with id " + existingUserId
                     });
                 }
                 return res.status(500).send({
-                    message: "Error occured while updating employeeID with " + req.params.employeeId
+                    message: "Error occured while updating employeeID with " + existingUserId
                 });
             }
             res.send({
@@ -132,7 +135,8 @@ class Controll {
      * @param res is used to send the Response
      */
     login = (req, res) => {
-        employeeService.checkLoginDetails(req.body, (error, data) => {
+        let credentials=req.body;
+        employeeService.checkLoginDetails(credentials, (error, data) => {
             if (error) {
                 return res.status(404).send({
                     success: 0,
