@@ -53,8 +53,8 @@ class Controll {
      * @param res is used to send the Response
      */
     findOne = (req, res) => {
-        let employeId=req.params.employeeId;
-        employeeService.findDataId(employeId, (error, userData) => {
+        let employeObjectId=req.params.employeeId;
+        employeeService.findDataId(employeObjectId, (error, userData) => {
             if (error) {
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
@@ -81,8 +81,8 @@ class Controll {
      * @param res is used to send the Response
      */
     delete = (req, res) => {
-        let employeId=req.params.employeeId;
-        employeeService.deleteDataUsingId(employeId, error => {
+        let employeObjectId=req.params.employeeId;
+        employeeService.deleteDataUsingId(employeObjectId, error => {
             if (error) {
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({

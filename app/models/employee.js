@@ -48,8 +48,8 @@ class RegisterModel {
     * @description retrive all the Employee Data from MongoDB
     * @return callback is used to callback Services with data or error message
     */
-    findDataId = (userDataID, callback) => {
-        Employee.findById(userDataID, (error, data) => {
+    findDataId = (employeObjectId, callback) => {
+        Employee.findById(employeObjectId, (error, data) => {
             return (error) ? callback(error, null) : callback(null, data);
         })
     }

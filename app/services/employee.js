@@ -33,8 +33,8 @@ class RegisterService {
     * @description retrive Employee Data
     * @return callback is used to callback Controller with data or error message
     */
-    findDataId = (userDataId, callback) => {
-        employeeModel.findDataId(userDataId, (error, data) => {
+    findDataId = (employeObjectId, callback) => {
+        employeeModel.findDataId(employeObjectId, (error, data) => {
             return (error) ? callback(error, null) : callback(null, data);
         });
     }
