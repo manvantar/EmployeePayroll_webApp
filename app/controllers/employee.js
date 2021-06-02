@@ -35,7 +35,7 @@ class Controll {
      * @param req is request sent from http
      * @param res is used to send the Response
      */
-     findAllEmployees = (req, res) => {
+    findAllEmployees = (req, res) => {
         employeeService.findAllEmployees((error, EmployeeData) => {
             if (error) {
                 logger.error("Some error occured while fetching Data")
@@ -132,14 +132,16 @@ class Controll {
      * @param res is used to send the Response
      */
     login = (req, res) => {
-        employeeService.checkLoginDetails(req.body, (error,data) => {
+        employeeService.checkLoginDetails(req.body, (error, data) => {
             if (error) {
                 return res.status(404).send({
+                    success: 0,
                     message: error
                 });
             }
             res.send({
-               message:data
+                success: 1,
+                message: data
             })
         })
     }

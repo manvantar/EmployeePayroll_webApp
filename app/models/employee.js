@@ -93,7 +93,7 @@ class RegisterModel {
             else if (!data) {
                 return callback("UserId doesn't exist", null)
             }         
-            return (bcrypt.compareSync(loginData.password, data.password)) ? callback(null, "Login Successfull") : callback("Invalid Credentials", null);
+           return callback(null, data);
         }
         )
     }

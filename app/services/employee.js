@@ -1,5 +1,6 @@
 const employeeModel = require('../models/employee.js');
 const { genSaltSync, hashSync } = require("bcrypt");
+const bcrypt = require('bcrypt');
 
 class RegisterService {
 
@@ -66,7 +67,13 @@ class RegisterService {
     */
     checkLoginDetails=(loginData,callback)=>{     
         employeeModel.checkLoginDetails(loginData, (error, data) => {
-            return (error) ? callback(error, null) : callback(null,data);
+            if(error){
+                return callback(error, null) ;
+            }
+            else if(!bcrypt.compareSync(loginData.password, data.password)){
+                return callback("Invalid Credentials",null); 
+            }  
+            return callback(null,"Login Successful");
         });
     }
      
