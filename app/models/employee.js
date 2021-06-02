@@ -38,7 +38,7 @@ class RegisterModel {
     * @description retrive all the Employee Data from MongoDB
     * @return callback is used to callback Services with data or error message
     */
-     findAllEmployees = (callback) => {
+    findAllEmployees = (callback) => {
         Employee.find({}, (error, data) => {
             return (error) ? callback(error, null) : callback(null, data);
         });
@@ -48,7 +48,7 @@ class RegisterModel {
     * @description retrive all the Employee Data from MongoDB
     * @return callback is used to callback Services with data or error message
     */
-     findDataId = (userDataID, callback) => {
+    findDataId = (userDataID, callback) => {
         Employee.findById(userDataID, (error, data) => {
             return (error) ? callback(error, null) : callback(null, data);
         })
@@ -58,7 +58,7 @@ class RegisterModel {
     * @description delete the Employee Data from MongoDB
     * @return callback is used to callback Services with or without error message
     */
-     deleteDataUsingId = (userDataID, callback) => {
+    deleteDataUsingId = (userDataID, callback) => {
         Employee.findByIdAndRemove(userDataID, error => {
             return (error) ? callback(error) : callback(null);
         })
@@ -81,21 +81,17 @@ class RegisterModel {
     }
 
     /**
-    * @description checkLogindetails d
+    * @description Get the data by emailID
     * @param loginData having emailId and password
     * @return callback is used to callback Services with data or error message
     */
     checkLoginDetails = (loginData, callback) => {
         Employee.findOne({ "emailId": loginData.emailId }, (error, data) => {
-            if(error){
+            if (error) {
                 return callback(error, null)
             }
-            else if (!data) {
-                return callback("UserId doesn't exist", null)
-            }         
-           return callback(null, data);
-        }
-        )
+            return (!data) ? callback("UserId doesn't exist", null) : callback(null, data);
+        })
     }
 }
 

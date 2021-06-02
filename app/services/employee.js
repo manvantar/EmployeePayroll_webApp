@@ -1,6 +1,8 @@
 const employeeModel = require('../models/employee.js');
 const { genSaltSync, hashSync } = require("bcrypt");
 const bcrypt = require('bcrypt');
+const { sign } = require('jsonwebtoken');
+require("dotenv").config();
 
 class RegisterService {
 
@@ -60,23 +62,26 @@ class RegisterService {
         })
     }
 
-     /**
-    * @description checkLogindetails d
-    * @param loginData having emailId and password
-    * @return callback is used to callback controller with data or error message
-    */
-    checkLoginDetails=(loginData,callback)=>{     
+    /**
+   * @description checkLogindetails used to validate the username and password
+   * @param loginData having emailId and password
+   * @return callback is used to callback controller with JsonWebToken or error message
+   */
+    checkLoginDetails = (loginData, callback) => {
         employeeModel.checkLoginDetails(loginData, (error, data) => {
-            if(error){
-                return callback(error, null) ;
+            let result=null;
+            if (error) {
+                return callback(error, null);
             }
-            else if(!bcrypt.compareSync(loginData.password, data.password)){
-                return callback("Invalid Credentials",null); 
-            }  
-            return callback(null,"Login Successful");
+            else if (result=bcrypt.compareSync(loginData.password, data.password)) {
+                data.password = undefined;
+                const jsontoken = sign({ result: data }, process.env.JWT_KEY, { expiresIn: "1h" });
+                return callback(null, jsontoken);
+            }
+            return callback("Invalid Credentials", null);
         });
     }
-     
+
 }
 
 module.exports = new RegisterService();

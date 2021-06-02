@@ -140,9 +140,10 @@ class Controll {
                 });
             }
             res.send({
-                success: 1,
-                message: data
-            })
+                succes: 1,
+                message: "logged in successfully",
+                token: data
+            });
         })
     }
 }
