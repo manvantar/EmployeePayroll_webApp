@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-let token = req.get("authorization");
 module.exports = {
 
     /**
@@ -7,6 +6,7 @@ module.exports = {
     * @param req from the user, res to server , next method 
     */
     checkToken: (req, res, next) => {
+        let token = req.get("authorization");
         if (token) {
             token = token.slice(7);
             jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {

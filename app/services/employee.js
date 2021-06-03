@@ -77,7 +77,7 @@ class RegisterService {
             }
             else if (bcrypt.compareSync(credentials.password, data.password)) {
                 data.password = undefined;
-                const jsontoken = sign({ result: data }, process.env.JWT_KEY, { expiresIn: "1h" });
+                const jsontoken = sign({ true: data }, process.env.JWT_KEY, { expiresIn: "1h" });
                 return callback(null, jsontoken);
             }
             return callback("Invalid Credentials", null);
