@@ -72,13 +72,12 @@ class RegisterService {
    */
     checkLoginDetails = (credentials, callback) => {
         employeeModel.checkLoginDetails(credentials, (error, data) => {
-            let result=null;
             if (error) {
                 return callback(error, null);
             }
-            else if (result=bcrypt.compareSync(credentials.password, data.password)) {
+            else if (bcrypt.compareSync(credentials.password, data.password)) {
                 data.password = undefined;
-                const jsontoken = sign({ result: data }, process.env.JWT_KEY, { expiresIn: "1h" });
+                const jsontoken = sign({ true: data }, process.env.JWT_KEY, { expiresIn: "1h" });
                 return callback(null, jsontoken);
             }
             return callback("Invalid Credentials", null);
