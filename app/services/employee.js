@@ -1,8 +1,7 @@
 const employeeModel = require('../models/employee.js');
 const { genSaltSync, hashSync } = require("bcrypt");
-const bcrypt = require('bcrypt');
-const { sign } = require('jsonwebtoken');
 require("dotenv").config();
+const generateTokenObject = require('../../helper/tokenGenerator.js');
 
 class RegisterService {
 
@@ -75,15 +74,13 @@ class RegisterService {
             if (error) {
                 return callback(error, null);
             }
-            else if (bcrypt.compareSync(credentials.password, data.password)) {
-                data.password = undefined;
-                const jsontoken = sign({ true: data }, process.env.JWT_KEY, { expiresIn: "1h" });
-                return callback(null, jsontoken);
+            else if (generateTokenObject.checkPassword(credentials.password,data.password)) {              
+                    let token = generateTokenObject.generateToken(data.emailId, "20s");
+                    return (!token) ? callback("Something went wrong while generating JWT", null) : callback(null, token)                             
             }
             return callback("Invalid Credentials", null);
         });
     }
-
 }
 
 module.exports = new RegisterService();

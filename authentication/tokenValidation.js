@@ -13,7 +13,7 @@ module.exports = {
                 if (err) {
                     return res.status(400).send({
                         success: 0,
-                        message: "Invalid Token..."
+                        message: "Invalid Token...or Expired"
                     });
                 } else {
                     req.decoded = decoded;

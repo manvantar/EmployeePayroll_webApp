@@ -53,7 +53,7 @@ class Controll {
      * @param res is used to send the Response
      */
     findOne = (req, res) => {
-        let employeObjectId=req.params.employeeId;
+        let employeObjectId = req.params.employeeId;
         employeeService.findDataId(employeObjectId, (error, userData) => {
             if (error) {
                 if (error.kind === 'ObjectId') {
@@ -81,7 +81,7 @@ class Controll {
      * @param res is used to send the Response
      */
     delete = (req, res) => {
-        let employeObjectId=req.params.employeeId;
+        let employeObjectId = req.params.employeeId;
         employeeService.deleteDataUsingId(employeObjectId, error => {
             if (error) {
                 if (error.kind === 'ObjectId') {
@@ -110,7 +110,7 @@ class Controll {
             });
         }
         let userData = req.body;
-        let existingUserId=req.params.employeeId;
+        let existingUserId = req.params.employeeId;
         employeeService.updateByID(existingUserId, userData, (error, resultData) => {
             if (error) {
                 if (error.kind === 'ObjectId') {
@@ -135,7 +135,7 @@ class Controll {
      * @param res is used to send the Response
      */
     login = (req, res) => {
-        let credentials=req.body;
+        let credentials = req.body;
         employeeService.checkLoginDetails(credentials, (error, data) => {
             if (error) {
                 return res.status(404).send({
