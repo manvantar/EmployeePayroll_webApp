@@ -12,6 +12,7 @@ class Controll {
         var validationResult = authorise.validate(req.body);
         if (validationResult.error) {
             return res.status(400).send({
+                success: false,
                 message: validationResult.error.details[0].message
             });
         }
@@ -19,11 +20,13 @@ class Controll {
         employeeService.create(userData, (error, resultdata) => {
             if (error) {
                 return res.status(500).send({
+                    success: false,
                     message: "Error occured while creating Employee",
                     error: error.message
                 });
             }
             res.send({
+                success: true,
                 data: resultdata,
                 message: "Employee Data Inserted successfully"
             })
@@ -40,6 +43,7 @@ class Controll {
             if (error) {
                 logger.error("Some error occured while fetching Data")
                 return res.status(500).send({
+                    success: false,
                     message: "Some error occured while fetching Data"
                 });
             }
@@ -58,17 +62,23 @@ class Controll {
             if (error) {
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
+                        success: false,
                         message: "Employee not found with id " + employeId
                     });
                 }
                 return res.status(500).send({
+                    success: false,
                     message: "Error retrieving employee with id " + employeId
                 });
             }
             if (userData)
-                res.send(userData);
+                res.send({
+                    success: true,
+                    foundData: userData
+                });
             else {
                 return res.status(404).send({
+                    success: false,
                     message: "Employee not found with id " + req.params.employeeId
                 });
             }
@@ -86,14 +96,19 @@ class Controll {
             if (error) {
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
+                        success: false,
                         message: "Employee not found with id " + employeId
                     });
                 }
                 return res.status(500).send({
+                    success: false,
                     message: "Error retrieving employee with id " + employeId
                 });
             }
-            res.send({ message: "Employee deleted successfully!" });
+            res.send({
+                success: true,
+                message: "Employee deleted successfully!"
+            });
         })
     };
 
@@ -106,6 +121,7 @@ class Controll {
         var validationResult = authorise.validate(req.body);
         if (validationResult.error) {
             return res.status(400).send({
+                success: false,
                 message: validationResult.error.details[0].message
             });
         }
@@ -115,16 +131,19 @@ class Controll {
             if (error) {
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
+                        success: false,
                         message: "Employee not found with id " + existingUserId
                     });
                 }
                 return res.status(500).send({
+                    success: false,
                     message: "Error occured while updating employeeID with " + existingUserId
                 });
             }
             res.send({
+                success: true,
                 message: "Employee Data updated successfully",
-                data: resultData
+                UpdatedData: resultData
             })
         })
     };
@@ -139,12 +158,12 @@ class Controll {
         employeeService.checkLoginDetails(credentials, (error, data) => {
             if (error) {
                 return res.status(404).send({
-                    success: 0,
+                    success: false,
                     message: error
                 });
             }
             res.send({
-                succes: 1,
+                success: true,
                 message: "logged in successfully",
                 token: data
             });

@@ -1,7 +1,6 @@
 const employeeModel = require('../models/employee.js');
 const { genSaltSync, hashSync } = require("bcrypt");
-require("dotenv").config();
-const generateTokenObject = require('../../helper/tokenGenerator.js');
+const helper = require('../../helper/tokenGenerator.js');
 
 class RegisterService {
 
@@ -74,8 +73,8 @@ class RegisterService {
             if (error) {
                 return callback(error, null);
             }
-            else if (generateTokenObject.checkPassword(credentials.password,data.password)) {              
-                    let token = generateTokenObject.generateToken(data.emailId, "20s");
+            else if (helper.checkPassword(credentials.password,data.password)) {              
+                    let token = helper.generateToken(data.emailId, "20s");
                     return (!token) ? callback("Something went wrong while generating JWT", null) : callback(null, token)                             
             }
             return callback("Invalid Credentials", null);
