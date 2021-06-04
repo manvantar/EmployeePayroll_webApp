@@ -12,17 +12,17 @@ module.exports = {
             jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
                 if (err) {
                     return res.status(400).send({
-                        success: 0,
+                        success: false,
                         message: "Invalid Token...or Expired"
                     });
                 } else {
-                    req.decoded = decoded;
+                    //req.decoded = decoded;
                     next();
                 }
             });
         } else {
             return res.status(404).send({
-                success: 0,
+                success: false,
                 message: "Access Denied! Unauthorized User!! add Token and then Proceed "
             });
         }
