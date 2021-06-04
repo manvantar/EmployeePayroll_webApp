@@ -1,5 +1,5 @@
 const controllerEmployee = require('../controllers/employee.js');
-const tokenvalidation = require('../../authentication/tokenValidation.js');
+const tokenvalidation = require('../../middleware/tokenValidation.js');
 
 module.exports = (app) => {
 
@@ -10,7 +10,7 @@ module.exports = (app) => {
     app.get('/employees', tokenvalidation.checkToken, controllerEmployee.findAllEmployees);
 
     // Retrieve a single employee with employeeId
-    app.get('/employees/:employeeId', tokenvalidation.checkToken, controllerEmployee.findOne);
+    app.get('/employees/:employeeId', tokenvalidation.checkToken, controllerEmployee.findOneData);
 
     // Update a employee with employeeId
     app.put('/update/:employeeId', tokenvalidation.checkToken, controllerEmployee.update);

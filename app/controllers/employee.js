@@ -1,4 +1,4 @@
-const { authorise } = require('../validation/employee.js');
+const { joiValidator } = require('../helper/joiValidation.js');
 const employeeService = require('../services/employee.js');
 
 class Controll {
@@ -9,7 +9,7 @@ class Controll {
      * @param res is used to send the Response
      */
     create = (req, res) => {
-        var validationResult = authorise.validate(req.body);
+        var validationResult = joiValidator.validate(req.body);
         if (validationResult.error) {
             return res.status(400).send({
                 success: false,
@@ -56,7 +56,7 @@ class Controll {
      * @param req is request sent from http
      * @param res is used to send the Response
      */
-    findOne = (req, res) => {
+    findOneData = (req, res) => {
         let employeObjectId = req.params.employeeId;
         employeeService.findDataId(employeObjectId, (error, userData) => {
             if (error) {
@@ -118,7 +118,7 @@ class Controll {
       * @param res is used to send the Response
       */
     update = (req, res) => {
-        var validationResult = authorise.validate(req.body);
+        var validationResult = joiValidator.validate(req.body);
         if (validationResult.error) {
             return res.status(400).send({
                 success: false,

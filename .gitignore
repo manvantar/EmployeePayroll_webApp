@@ -1,7 +1,7 @@
 node_modules
 .env
 EncryptionTest.js
-middleware
+dummy
 # Logs
 logs
 *.log
