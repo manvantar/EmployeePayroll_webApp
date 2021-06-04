@@ -25,7 +25,7 @@ class Controll {
                     error: error.message
                 });
             }
-            res.send({
+            res.status(201).send({
                 success: true,
                 data: resultdata,
                 message: "Employee Data Inserted successfully"

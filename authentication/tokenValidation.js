@@ -9,19 +9,19 @@ module.exports = {
         let token = req.get("authorization");
         if (token) {
             token = token.slice(7);
-            jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
+            jwt.verify(token, process.env.JWT_KEY, err => {
                 if (err) {
                     return res.status(400).send({
                         success: false,
                         message: "Invalid Token...or Expired"
                     });
                 } else {
-                    //req.decoded = decoded;
                     next();
                 }
             });
-        } else {
-            return res.status(404).send({
+        }
+        else {
+            return res.status(401).send({
                 success: false,
                 message: "Access Denied! Unauthorized User!! add Token and then Proceed "
             });
