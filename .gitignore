@@ -2,6 +2,7 @@ node_modules
 .env
 EncryptionTest.js
 dummy
+test/employee.json
 # Logs
 logs
 *.log

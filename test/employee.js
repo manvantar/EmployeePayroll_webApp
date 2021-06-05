@@ -7,7 +7,7 @@ var expect = require('chai').expect;
 var request = require('supertest');
 
 const fs = require('fs');
-let rawdata = fs.readFileSync('test/test.json');
+let rawdata = fs.readFileSync('test/employee.json');
 let employee = JSON.parse(rawdata);
 
 
@@ -154,4 +154,35 @@ describe("/GET /employees/Id", () => {
     });
 });
 
+describe("/PUT /update/Id", () => { 
+    
+    it("it should update employeeData successfully with valid token and Object Id returns status 200 and success=true", done => {
+        const inputBody = employee.Data3;
+        chai
+            .request(server)
+            .put("/update/"+employee.Data5.Id)
+            .set('Authorization', 'bearar ' + token)
+            .send(inputBody)
+            .end((err, response) => {
+                response.should.have.status(200);
+                response.body.should.have.property('success').eq(true);
+                done();
+            });
+    });
+
+    it("it should not update employeeData with valid token and invalid Object Id returns status 404 and success=false", done => {
+        const inputBody = employee.Data3;
+        chai
+            .request(server)
+            .put("/update/"+employee.Data6.Id)
+            .set('Authorization', 'bearar ' + token)
+            .send(inputBody)
+            .end((err, response) => {
+                response.should.have.status(404);
+                response.body.should.have.property('success').eq(false);
+                done();
+            });
+    });
+    
+});
 
