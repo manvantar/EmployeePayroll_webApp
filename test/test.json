@@ -1,0 +1,21 @@
+{
+  "Data1": 
+    {
+      "emailId": "manukvshetty2@gmail.com", "password": "n@@nU2897"
+    },
+    "Data2":{
+      "emailId": "manuk22121222@gmail.com", "password": "n@@nU2897" 
+    },
+    "Data3":{
+      "firstName": "Manu",
+            "lastName": "KV",
+            "emailId": "manukvshetty2@gmail.com",
+            "password": "n@@nU2897"
+    },
+    "Data4":{
+      "firstName": "Manu",
+            "lastName": "KV",
+            "emailId": "manukvshetty2@gmail.com",
+            "password": "n@2897"
+    }
+}
