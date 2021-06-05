@@ -67,22 +67,21 @@ describe("POST /add", () => {
     })
 })
 
-
-describe("/get /employees", () => {
-   
-    let token='';
+let token='';
     
-    beforeEach(done => {
-        chai
-            .request(server)
-            .post("/login")
-            .send(employee.Data1)
-            .end((err, res) => {
-                token = res.body.token;
-                res.should.have.status(200);
-                done();
-            });
-    });  
+beforeEach(done => {
+    chai
+        .request(server)
+        .post("/login")
+        .send(employee.Data1)
+        .end((err, res) => {
+            token = res.body.token;
+            res.should.have.status(200);
+            done();
+        });
+});
+
+describe("/GET /employees", () => { 
     
     it("it should fetch all employeeData successfully with valid token returns status 200 and success=true", done => {
         chai
@@ -125,3 +124,34 @@ describe("/get /employees", () => {
     });
 
 });
+
+
+describe("/GET /employees/Id", () => { 
+    
+    it("it should give employeeData successfully with valid token and Object Id returns status 200 and success=true", done => {
+        chai
+            .request(server)
+            .get("/employees/"+employee.Data5.Id)
+            .set('Authorization', 'bearar ' + token)
+            .end((err, response) => {
+                response.should.have.status(200);
+                response.body.should.have.property('success').eq(true);
+                response.body.should.have.property('foundData');
+                done();
+            });
+    });
+
+    it("it not should give employeeData  with valid token and invalid and Object Id returns status 404 and success=false", done => {
+        chai
+            .request(server)
+            .get("/employees/"+employee.Data6.Id)
+            .set('Authorization', 'bearar ' + token)
+            .end((err, response) => {
+                response.should.have.status(404);
+                response.body.should.have.property('success').eq(false);
+                done();
+            });
+    });
+});
+
+

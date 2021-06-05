@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "node_modules/mocha/bin/mocha ./test"
+    "test": "mocha"
   },
   "author": "Manu K V",
   "license": "ISC",
