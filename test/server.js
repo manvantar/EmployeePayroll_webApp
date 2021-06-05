@@ -67,10 +67,11 @@ describe("POST /add", () => {
     })
 })
 
-describe("GET /employees", () => {
 
-    let token;
-
+describe("/get /employees", () => {
+   
+    let token='';
+    
     beforeEach(done => {
         chai
             .request(server)
@@ -81,27 +82,46 @@ describe("GET /employees", () => {
                 res.should.have.status(200);
                 done();
             });
-    });
-
-    describe("/get /employees", () => {
-        it("should fetch all users successfully with valid token returns status 200 and success=true", done => {
-            //console.log(token);
-            chai
-                .request(server)
-                .get("/employees")
-                .set('Authorization','bearar '+ token )
-                .end((err, response) => {
-                    response.should.have.status(200);
-                    response.body.should.have.property('message').eq("Retrived all the employee data successfully")
-                    response.body.should.have.property('EmployeeData')
-                    done();
-                });
-        });
-
-
-
-        
-    });
-
+    });  
     
+    it("it should fetch all employeeData successfully with valid token returns status 200 and success=true", done => {
+        chai
+            .request(server)
+            .get("/employees")
+            .set('Authorization', 'bearar ' + token)
+            .end((err, response) => {
+                response.should.have.status(200);
+                response.body.should.have.property('message').eq("Retrived all the employee data successfully")
+                response.body.should.have.property('EmployeeData')
+                done();
+            });
+    });
+
+    it("it should not fetch all employeeData with invalid valid token returns status 400 and success=false", done => {
+        chai
+            .request(server)
+            .get("/employees")
+            .set('Authorization', 'bearar ' + token.slice(10))
+            .end((err, response) => {
+                response.should.have.status(400);
+                response.body.should.have.property('success').eq(false)
+                response.body.should.have.property('message').eq("Invalid Token...or Expired")
+                done();
+            });
+    });
+
+    it("it should not fetch all employeeData with empty token returns status 401 and success=false", done => {
+        var emptyToken='';
+        chai
+            .request(server)
+            .get("/employees")
+            .set('Authorization', emptyToken)
+            .end((err, response) => {
+                response.should.have.status(401);
+                response.body.should.have.property('success').eq(false)
+                response.body.should.have.property('message').eq("Access Denied! Unauthorized User!! add Token and then Proceed ")
+                done();
+            });
+    });
+
 });

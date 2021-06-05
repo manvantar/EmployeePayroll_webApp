@@ -20,14 +20,14 @@ class Helper {
     * @return boolen value
     */
     checkPassword = (Userpassword, encryptedPass) => {
-        return (Userpassword && encryptedPass)? bcrypt.compareSync(Userpassword, encryptedPass): false;
+        return (Userpassword && encryptedPass) ? bcrypt.compareSync(Userpassword, encryptedPass) : false;
     }
 
     /**
     * @description CheckToken method is used to validate the Token before the execution of next
     * @param req from the user, res to server , next method 
     */
-     checkToken= (req, res, next) => {
+    checkToken = (req, res, next) => {
         let token = req.get("authorization");
         if (token) {
             token = token.slice(7);
@@ -52,4 +52,3 @@ class Helper {
 
 }
 module.exports = new Helper();
-
