@@ -4,7 +4,8 @@
   "description": "Employee Payroll JSON Application",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "mocha"
   },
   "author": "Manu K V",
   "license": "ISC",
@@ -18,6 +19,9 @@
     "mongoose": "^5.12.11"
   },
   "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "mocha": "^8.4.0",
     "nodemon": "^2.0.7"
   }
 }
