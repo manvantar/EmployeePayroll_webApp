@@ -4,7 +4,7 @@ const helper = require('../middleware/helper.js');
 module.exports = (app) => {
 
     // Create a new employee
-    app.post('/add', helper.checkToken, controllerEmployee.create);
+    app.post('/add', controllerEmployee.create);
 
     // Retrieve all employees
     app.get('/employees', helper.checkToken, controllerEmployee.findAllEmployees);
