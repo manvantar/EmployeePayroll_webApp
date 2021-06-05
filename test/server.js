@@ -3,9 +3,13 @@ const chaiHttp = require("chai-http");
 const server = require("../server");
 chai.should();
 chai.use(chaiHttp);
+var expect = require('chai').expect;
+var request = require('supertest');
+
 const fs = require('fs');
 let rawdata = fs.readFileSync('test/test.json');
 let employee = JSON.parse(rawdata);
+
 
 describe("POST /login", () => {
     it("It should post a new Login inputBody and return status 200, success=true", (done) => {
@@ -62,3 +66,42 @@ describe("POST /add", () => {
             });
     })
 })
+
+describe("GET /employees", () => {
+
+    let token;
+
+    beforeEach(done => {
+        chai
+            .request(server)
+            .post("/login")
+            .send(employee.Data1)
+            .end((err, res) => {
+                token = res.body.token;
+                res.should.have.status(200);
+                done();
+            });
+    });
+
+    describe("/get /employees", () => {
+        it("should fetch all users successfully with valid token returns status 200 and success=true", done => {
+            //console.log(token);
+            chai
+                .request(server)
+                .get("/employees")
+                .set('Authorization','bearar '+ token )
+                .end((err, response) => {
+                    response.should.have.status(200);
+                    response.body.should.have.property('message').eq("Retrived all the employee data successfully")
+                    response.body.should.have.property('EmployeeData')
+                    done();
+                });
+        });
+
+
+
+        
+    });
+
+    
+});

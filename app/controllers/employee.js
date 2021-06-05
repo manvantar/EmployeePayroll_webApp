@@ -47,7 +47,11 @@ class Controll {
                     message: "Some error occured while fetching Data"
                 });
             }
-            res.send(EmployeeData)
+            res.send({
+                success: true,
+                message: "Retrived all the employee data successfully",
+                EmployeeData: EmployeeData
+            })
         })
     };
 
