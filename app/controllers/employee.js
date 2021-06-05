@@ -1,4 +1,4 @@
-const { joiValidator } = require('../helper/joiValidation.js');
+const { joiValidator } = require('../middleware/validation.js');
 const employeeService = require('../services/employee.js');
 
 class Controll {

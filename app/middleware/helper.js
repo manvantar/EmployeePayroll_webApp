@@ -1,11 +1,34 @@
+const { sign } = require('jsonwebtoken');
+require("dotenv").config();
+const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
-module.exports = {
+
+class Helper {
+
+    /**
+    * @description this method is used to generate JWT Token 
+    * @param data->emailId, timelimit for the Token 
+    * @return token
+    */
+    generateToken = (emailId, timeLimit) => {
+        let token = sign({ email: emailId }, process.env.JWT_KEY, { expiresIn: timeLimit });
+        return (!token) ? null : token;
+    }
+
+    /**
+    * @description this method is used to checkpassword
+    * @param userPassword from body, encryptedPassword from Database
+    * @return boolen value
+    */
+    checkPassword = (Userpassword, encryptedPass) => {
+        return (Userpassword && encryptedPass)? bcrypt.compareSync(Userpassword, encryptedPass): false;
+    }
 
     /**
     * @description CheckToken method is used to validate the Token before the execution of next
     * @param req from the user, res to server , next method 
     */
-    checkToken: (req, res, next) => {
+     checkToken= (req, res, next) => {
         let token = req.get("authorization");
         if (token) {
             token = token.slice(7);
@@ -27,4 +50,7 @@ module.exports = {
             });
         }
     }
-};
+
+}
+module.exports = new Helper();
+

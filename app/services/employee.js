@@ -1,6 +1,6 @@
 const employeeModel = require('../models/employee.js');
 const { genSaltSync, hashSync } = require("bcrypt");
-const helper = require('../helper/tokenAndPass.js');
+const helper = require('../middleware/helper.js');
 
 class RegisterService {
 

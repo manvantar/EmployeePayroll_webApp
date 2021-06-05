@@ -1,18 +1,15 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const server = require("../server");
+
 chai.should();
 chai.use(chaiHttp);
 
 describe("Tasks", () => {
 
     describe("POST /login", () => {
-        it("It should post a new Login task and return status 200, success=true", (done) => {
-            const inputBody = {
-                "emailId": "manukvshetty2@gmail.com",
-                "password": "n@@nU2897"
-            };
-
+        it("It should post a new Login inputBody and return status 200, success=true", (done) => {
+            const inputBody = {"emailId": "manukvshetty2@gmail.com","password": "n@@nU2897"};
             chai.request(server)
                 .post("/login")
                 .send(inputBody)
@@ -24,15 +21,9 @@ describe("Tasks", () => {
                     done();
                 });
         })
-    })
 
-    describe("POST /login", () => {
-        it("It should post a new Login task and return status 404, success=false", (done) => {
-            const inputBody2 = {
-                "emailId": "manuk22121222@gmail.com",
-                "password": "n@@nU2897"
-            };
-
+        it("It should post a new Login inputBody2 and return status 404, success=false", (done) => {
+            const inputBody2 = {"emailId": "manuk22121222@gmail.com","password": "n@@nU2897" };
             chai.request(server)
                 .post("/login")
                 .send(inputBody2)
@@ -44,5 +35,8 @@ describe("Tasks", () => {
         })
     })
 
-})
+  /*  describe("POST /login", () => {
+        
+    })*/
 
+})
