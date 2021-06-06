@@ -1,5 +1,6 @@
 const { joiValidator } = require('../middleware/validation.js');
 const employeeService = require('../services/employee.js');
+const logger = require('../../config/logger.js');
 
 class Controll {
 
@@ -40,8 +41,7 @@ class Controll {
      */
     findAllEmployees = (req, res) => {
         employeeService.findAllEmployees((error, EmployeeData) => {
-            if (error) {
-                logger.error("Some error occured while fetching Data")
+            if (error) {               
                 return res.status(500).send({
                     success: false,
                     message: "Some error occured while fetching Data"
@@ -63,7 +63,9 @@ class Controll {
     findOneData = (req, res) => {
         let employeObjectId = req.params.employeeId;
         employeeService.findDataId(employeObjectId, (error, userData) => {
+            
             if (error) {
+                logger.error("Employee not found with id " + employeObjectId);
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
                         success: false,

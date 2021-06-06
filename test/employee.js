@@ -10,7 +10,6 @@ const fs = require('fs');
 let rawdata = fs.readFileSync('test/employee.json');
 let employee = JSON.parse(rawdata);
 
-
 describe("POST /login", () => {
     it("It should post a new Login inputBody and return status 200, success=true", (done) => {
         const inputBody = employee.Data1;
@@ -125,7 +124,6 @@ describe("/GET /employees", () => {
 
 });
 
-
 describe("/GET /employees/Id", () => { 
     
     it("it should give employeeData successfully with valid token and Object Id returns status 200 and success=true", done => {
@@ -185,7 +183,6 @@ describe("/PUT /update/Id", () => {
     });
     
 });
-
 
 describe("/Delele /Id", () => { 
     

@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require('express');
 const dbconnect = require('./config/database.js');
-
+const logger = require('./config/logger.js');
 // create express app
 const app = express();
 
@@ -25,6 +25,7 @@ require('./app/routes/employee')(app);
 // listen for requests
 const port = process.env.SERVER_PORT;
 
-module.exports= app.listen(port, () =>console.log("Server is listening on port "+port));
+module.exports= app.listen(port, () =>
+logger.log('info',"Server is listening on port "+port));
 
 
