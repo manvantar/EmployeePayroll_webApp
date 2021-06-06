@@ -186,3 +186,31 @@ describe("/PUT /update/Id", () => {
     
 });
 
+
+describe("/Delele /Id", () => { 
+    
+    it("it should delete employeeData successfully with valid token and Object Id returns status 200 and success=true", done => {
+        chai
+            .request(server)
+            .delete("/delete/"+employee.Data5.Id)
+            .set('Authorization', 'bearar ' + token)
+            .end((err, response) => {
+                response.should.have.status(200);
+                //response.body.should.have.property('success').eq(false);
+                done();
+            });
+    });
+
+    it("it not should delete employeeData  with valid token and invalid and Object Id returns status 404 and success=false", done => {
+        chai
+            .request(server)
+            .delete("/delete/"+employee.Data6.Id)
+            .set('Authorization', 'bearar ' + token)
+            .end((err, response) => {
+                response.should.have.status(404);
+                response.body.should.have.property('success').eq(false);
+                done();
+            });
+    });
+    
+});

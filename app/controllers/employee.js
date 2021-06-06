@@ -101,12 +101,12 @@ class Controll {
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
                         success: false,
-                        message: "Employee not found with id " + employeId
+                        message: "Employee not found with id " + employeObjectId
                     });
                 }
                 return res.status(500).send({
                     success: false,
-                    message: "Error retrieving employee with id " + employeId
+                    message: "Error retrieving employee with id " + employeObjectId
                 });
             }
             res.send({
