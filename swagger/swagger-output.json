@@ -1,0 +1,81 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Employee Payroll Backend",
+        "description": "Employee Registration form"
+    },
+    "tags": [],
+    "consumes": [],
+    "produces": [],
+    "paths": {
+        "/employees": {
+            "get": {
+                "tags": [],
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/employees/{ObjectId}": {
+            "get": {
+                "tags": [],
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "ObjectId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/delete/{ObjectId}":{
+            "delete": {
+                "tags": [],
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "ObjectId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}
