@@ -74,7 +74,7 @@ class RegisterService {
                 return callback(error, null);
             }
             else if (helper.checkPassword(credentials.password,data.password)) {              
-                    let token = helper.generateToken(data.emailId, "5m");
+                    let token = helper.generateToken(data.emailId, process.env.JWT_TIMER);
                     return (!token) ? callback("Something went wrong while generating JWT", null) : callback(null, token)                             
             }
             return callback("Invalid Credentials", null);

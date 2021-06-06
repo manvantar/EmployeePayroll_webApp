@@ -3,16 +3,14 @@ const chaiHttp = require("chai-http");
 const server = require("../server");
 chai.should();
 chai.use(chaiHttp);
-var expect = require('chai').expect;
-var request = require('supertest');
 
 const fs = require('fs');
 let rawdata = fs.readFileSync('test/employee.json');
-let employee = JSON.parse(rawdata);
+let employeeJSON = JSON.parse(rawdata);
 
 describe("POST /login", () => {
     it("It should post a new Login inputBody and return status 200, success=true", (done) => {
-        const inputBody = employee.Data1;
+        const inputBody = employeeJSON.TestData1;
         chai.request(server)
             .post("/login")
             .send(inputBody)
@@ -26,7 +24,7 @@ describe("POST /login", () => {
     })
 
     it("It should post a new Login inputBody2 and return status 404, success=false", (done) => {
-        const inputBody2 = employee.Data2;
+        const inputBody2 = employeeJSON.TestData2;
         chai.request(server)
             .post("/login")
             .send(inputBody2)
@@ -40,7 +38,7 @@ describe("POST /login", () => {
 
 describe("POST /add", () => {
     it("It should post a new employeeData  and return status 200, success=true", (done) => {
-        const inputBody = employee.Data3;
+        const inputBody = employeeJSON.TestData3;
         chai.request(server)
             .post("/add")
             .send(inputBody)
@@ -53,7 +51,7 @@ describe("POST /add", () => {
     })
 
     it("It should post a new employeeData  and return status 400, success=false", (done) => {
-        const inputBody = employee.Data4;
+        const inputBody = employeeJSON.TestData4;
         chai.request(server)
             .post("/add")
             .send(inputBody)
@@ -66,19 +64,22 @@ describe("POST /add", () => {
     })
 })
 
-let token='';
+let jwToken='';
     
 beforeEach(done => {
     chai
         .request(server)
         .post("/login")
-        .send(employee.Data1)
+        .send(employeeJSON.TestData1)
         .end((err, res) => {
-            token = res.body.token;
+            jwToken = res.body.token;
             res.should.have.status(200);
             done();
         });
 });
+
+let invalidToken=jwToken.slice(10);
+let empToken='';
 
 describe("/GET /employees", () => { 
     
@@ -86,7 +87,7 @@ describe("/GET /employees", () => {
         chai
             .request(server)
             .get("/employees")
-            .set('Authorization', 'bearar ' + token)
+            .set('Authorization', 'Bearar ' + jwToken)
             .end((err, response) => {
                 response.should.have.status(200);
                 response.body.should.have.property('message').eq("Retrived all the employee data successfully")
@@ -99,7 +100,7 @@ describe("/GET /employees", () => {
         chai
             .request(server)
             .get("/employees")
-            .set('Authorization', 'bearar ' + token.slice(10))
+            .set('Authorization', 'Bearar ' + invalidToken)
             .end((err, response) => {
                 response.should.have.status(400);
                 response.body.should.have.property('success').eq(false)
@@ -109,11 +110,10 @@ describe("/GET /employees", () => {
     });
 
     it("it should not fetch all employeeData with empty token returns status 401 and success=false", done => {
-        var emptyToken='';
         chai
             .request(server)
             .get("/employees")
-            .set('Authorization', emptyToken)
+            .set('Authorization', empToken)
             .end((err, response) => {
                 response.should.have.status(401);
                 response.body.should.have.property('success').eq(false)
@@ -126,11 +126,11 @@ describe("/GET /employees", () => {
 
 describe("/GET /employees/Id", () => { 
     
-    it("it should give employeeData successfully with valid token and Object Id returns status 200 and success=true", done => {
+    it("it should give employeeTestData successfully with valid token and Object Id returns status 200 and success=true", done => {
         chai
             .request(server)
-            .get("/employees/"+employee.Data5.Id)
-            .set('Authorization', 'bearar ' + token)
+            .get("/employees/"+employeeJSON.TestData5.Id)
+            .set('Authorization', 'Bearar ' + jwToken)
             .end((err, response) => {
                 response.should.have.status(200);
                 response.body.should.have.property('success').eq(true);
@@ -142,11 +142,37 @@ describe("/GET /employees/Id", () => {
     it("it not should give employeeData  with valid token and invalid and Object Id returns status 404 and success=false", done => {
         chai
             .request(server)
-            .get("/employees/"+employee.Data6.Id)
-            .set('Authorization', 'bearar ' + token)
+            .get("/employees/"+employeeJSON.TestData6.Id)
+            .set('Authorization', 'Bearar ' + jwToken)
             .end((err, response) => {
                 response.should.have.status(404);
                 response.body.should.have.property('success').eq(false);
+                done();
+            });
+    });
+
+    it("it not should give employeeData  with invalid valid token and valid and Object Id returns status 400 and success=false", done => {
+        chai
+            .request(server)
+            .get("/employees/"+employeeJSON.TestData5.Id)
+            .set('Authorization', 'Bearar ' + invalidToken)
+            .end((err, response) => {
+                response.should.have.status(400);
+                response.body.should.have.property('success').eq(false);
+                response.body.should.have.property('message').eq("Invalid Token...or Expired")
+                done();
+            });
+    });
+
+    it("it not should give employeeData  with empty token and valid Object Id returns status 401 and success=false", done => {
+        chai
+            .request(server)
+            .get("/employees/"+employeeJSON.TestData5.Id)
+            .set('Authorization', empToken)
+            .end((err, response) => {
+                response.should.have.status(401);
+                response.body.should.have.property('success').eq(false);
+                response.body.should.have.property('message').eq("Access Denied! Unauthorized User!! add Token and then Proceed ")
                 done();
             });
     });
@@ -155,11 +181,11 @@ describe("/GET /employees/Id", () => {
 describe("/PUT /update/Id", () => { 
     
     it("it should update employeeData successfully with valid token and Object Id returns status 200 and success=true", done => {
-        const inputBody = employee.Data3;
+        const inputBody = employeeJSON.TestData3;
         chai
             .request(server)
-            .put("/update/"+employee.Data5.Id)
-            .set('Authorization', 'bearar ' + token)
+            .put("/update/"+employeeJSON.TestData5.Id)
+            .set('Authorization', 'Bearar ' + jwToken)
             .send(inputBody)
             .end((err, response) => {
                 response.should.have.status(200);
@@ -169,15 +195,45 @@ describe("/PUT /update/Id", () => {
     });
 
     it("it should not update employeeData with valid token and invalid Object Id returns status 404 and success=false", done => {
-        const inputBody = employee.Data3;
+        const inputBody = employeeJSON.TestData3;
         chai
             .request(server)
-            .put("/update/"+employee.Data6.Id)
-            .set('Authorization', 'bearar ' + token)
+            .put("/update/"+employeeJSON.TestData6.Id)
+            .set('Authorization', 'Bearar ' + jwToken)
             .send(inputBody)
             .end((err, response) => {
                 response.should.have.status(404);
                 response.body.should.have.property('success').eq(false);
+                done();
+            });
+    });
+
+    it("it should not update employeeData with invalid token and valid Object Id returns status 400 and success=false", done => {
+        const inputBody = employeeJSON.TestData3;
+        chai
+            .request(server)
+            .put("/update/"+employeeJSON.TestData5.Id)
+            .set('Authorization', 'Bearar ' + invalidToken)
+            .send(inputBody)
+            .end((err, response) => {
+                response.should.have.status(400);
+                response.body.should.have.property('success').eq(false);
+                response.body.should.have.property('message').eq("Invalid Token...or Expired")
+                done();
+            });
+    });
+
+    it("it should not update employeeData with empty and valid Object Id returns status 401 and success=false", done => {
+        const inputBody = employeeJSON.TestData3;
+        chai
+            .request(server)
+            .put("/update/"+employeeJSON.TestData5.Id)
+            .set('Authorization', empToken)
+            .send(inputBody)
+            .end((err, response) => {
+                response.should.have.status(401);
+                response.body.should.have.property('success').eq(false)
+                response.body.should.have.property('message').eq("Access Denied! Unauthorized User!! add Token and then Proceed ")
                 done();
             });
     });
@@ -186,11 +242,11 @@ describe("/PUT /update/Id", () => {
 
 describe("/Delele /Id", () => { 
     
-    it("it should delete employeeData successfully with valid token and Object Id returns status 200 and success=true", done => {
+    it("it should delete employeeData successfully with valid token and valid Object Id returns status 200 and success=true", done => {
         chai
             .request(server)
-            .delete("/delete/"+employee.Data5.Id)
-            .set('Authorization', 'bearar ' + token)
+            .delete("/delete/"+employeeJSON.TestData5.Id)
+            .set('Authorization', 'Bearar ' + jwToken)
             .end((err, response) => {
                 response.should.have.status(200);
                 //response.body.should.have.property('success').eq(false);
@@ -201,11 +257,37 @@ describe("/Delele /Id", () => {
     it("it not should delete employeeData  with valid token and invalid and Object Id returns status 404 and success=false", done => {
         chai
             .request(server)
-            .delete("/delete/"+employee.Data6.Id)
-            .set('Authorization', 'bearar ' + token)
+            .delete("/delete/"+employeeJSON.TestData6.Id)
+            .set('Authorization', 'Bearar ' + jwToken)
             .end((err, response) => {
                 response.should.have.status(404);
                 response.body.should.have.property('success').eq(false);
+                done();
+            });
+    });
+
+    it("it not should delete employeeData  with invalid token and invalid and Object Id returns status 400 and success=false", done => {
+        chai
+            .request(server)
+            .delete("/delete/"+employeeJSON.TestData5.Id)
+            .set('Authorization', 'Bearar ' + invalidToken)
+            .end((err, response) => {
+                response.should.have.status(400);
+                response.body.should.have.property('success').eq(false);
+                response.body.should.have.property('message').eq("Invalid Token...or Expired")
+                done();
+            });
+    });
+
+    it("it not should delete employeeData  with empty token and valid Object Id returns status 401 and success=false", done => {
+        chai
+            .request(server)
+            .delete("/delete/"+employeeJSON.TestData5.Id)
+            .set('Authorization', invalidToken)
+            .end((err, response) => {
+                response.should.have.status(401);
+                response.body.should.have.property('success').eq(false)
+                response.body.should.have.property('message').eq("Access Denied! Unauthorized User!! add Token and then Proceed ")
                 done();
             });
     });
