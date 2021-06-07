@@ -12,7 +12,7 @@ const doc = {
     apis:['../EmployeePayroll_app/server']
 };
 
-const outputFile = './swagger-output.json';
+const outputFile = './swagger.json';
 const endpointsFiles = ['./app/routes/employeepayroll.js'];
 
 swaggerAutogen(outputFile, endpointsFiles, doc);
