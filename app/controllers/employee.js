@@ -1,6 +1,6 @@
 const { joiValidator } = require('../middleware/validation.js');
 const employeeService = require('../services/employee.js');
-const logger = require('../../logger/loggerConfig.js');
+const logger = require('../../logger/loggerCofig.js');
 
 class Controll {
 
@@ -40,19 +40,22 @@ class Controll {
      * @param res is used to send the Response
      */
     findAllEmployees = (req, res) => {
-        employeeService.findAllEmployees((error, EmployeeData) => {
-            if (error) {               
-                return res.status(500).send({
-                    success: false,
-                    message: "Some error occured while fetching Data"
-                });
-            }
-            res.send({
-                success: true,
-                message: "Retrived all the employee data successfully",
-                EmployeeData: EmployeeData
+        try{
+            employeeService.findAllEmployees((error, EmployeeData) => {
+                if (error) {               
+                    return res.status(500).send({
+                        success: false,
+                        message: "Some error occured while fetching Data"
+                    });
+                }
+                res.send({
+                    success: true,
+                    message: "Retrived all the employee data successfully",
+                    EmployeeData: EmployeeData
+                })
             })
-        })
+        }
+        catch{err};       
     };
 
     /**

@@ -9,7 +9,7 @@ let rawdata = fs.readFileSync('test/employee.json');
 let employeeJSON = JSON.parse(rawdata);
 
 describe("POST /login", () => {
-    it("It should post a new Login inputBody and return status 200, success=true", (done) => {
+    it("given new inputBody When loggedIn should return status 200, success=true", (done) => {
         const inputBody = employeeJSON.TestData1;
         chai.request(server)
             .post("/login")
@@ -23,7 +23,7 @@ describe("POST /login", () => {
             });
     })
 
-    it("It should post a new Login inputBody2 and return status 404, success=false", (done) => {
+    it("given new inputBody When loggedIn should return status 404, success=false", (done) => {
         const inputBody2 = employeeJSON.TestData2;
         chai.request(server)
             .post("/login")
@@ -37,7 +37,7 @@ describe("POST /login", () => {
 })
 
 describe("POST /add", () => {
-    it("It should post a new employeeData  and return status 200, success=true", (done) => {
+    it("given new employeeData When added Should return status 200, success=true", (done) => {
         const inputBody = employeeJSON.TestData3;
         chai.request(server)
             .post("/add")
@@ -50,7 +50,7 @@ describe("POST /add", () => {
             });
     })
 
-    it("It should post a new employeeData  and return status 400, success=false", (done) => {
+    it("given new employeeData When added Should return status 400, success=false", (done) => {
         const inputBody = employeeJSON.TestData4;
         chai.request(server)
             .post("/add")
@@ -78,12 +78,12 @@ beforeEach(done => {
         });
 });
 
-let invalidToken=jwToken.slice(10);
+let invalidToken=jwToken.slice(12);
 let empToken='';
 
 describe("/GET /employees", () => { 
     
-    it("it should fetch all employeeData successfully with valid token returns status 200 and success=true", done => {
+    it("given valid token When retrived Should return status 200 and success=true", done => {
         chai
             .request(server)
             .get("/employees")
@@ -96,11 +96,11 @@ describe("/GET /employees", () => {
             });
     });
 
-    it("it should not fetch all employeeData with invalid valid token returns status 400 and success=false", done => {
+    it("given invalidValid token When retrived Should return status 400 and success=false", done => {
         chai
             .request(server)
             .get("/employees")
-            .set('Authorization', 'Bearar ' + invalidToken)
+            .set('Authorization', 'Bearar ' + "  ")
             .end((err, response) => {
                 response.should.have.status(400);
                 response.body.should.have.property('success').eq(false)
@@ -109,7 +109,7 @@ describe("/GET /employees", () => {
             });
     });
 
-    it("it should not fetch all employeeData with empty token returns status 401 and success=false", done => {
+    it("given empty token When retrived Should return status 401 and success=false", done => {
         chai
             .request(server)
             .get("/employees")
@@ -126,10 +126,10 @@ describe("/GET /employees", () => {
 
 describe("/GET /employees/Id", () => { 
     
-    it("it should give employeeTestData successfully with valid token and Object Id returns status 200 and success=true", done => {
+    it("given ObjectID and Valid token When retrived Should return status 200 and success=true", done => {
         chai
             .request(server)
-            .get("/employees/"+employeeJSON.TestData5.Id)
+            .get("/employees/"+employeeJSON.TestData7.Id)
             .set('Authorization', 'Bearar ' + jwToken)
             .end((err, response) => {
                 response.should.have.status(200);
@@ -139,7 +139,7 @@ describe("/GET /employees/Id", () => {
             });
     });
 
-    it("it not should give employeeData  with valid token and invalid and Object Id returns status 404 and success=false", done => {
+    it("given invalidObjectID and Valid token When retrived Should return status 404 and success=false", done => {
         chai
             .request(server)
             .get("/employees/"+employeeJSON.TestData6.Id)
@@ -151,7 +151,7 @@ describe("/GET /employees/Id", () => {
             });
     });
 
-    it("it not should give employeeData  with invalid valid token and valid and Object Id returns status 400 and success=false", done => {
+    it("given ObjectID and invalidValid token When retrived Should return status 400 and success=false", done => {
         chai
             .request(server)
             .get("/employees/"+employeeJSON.TestData5.Id)
@@ -164,7 +164,7 @@ describe("/GET /employees/Id", () => {
             });
     });
 
-    it("it not should give employeeData  with empty token and valid Object Id returns status 401 and success=false", done => {
+    it("given ObjectID and empty token When retrived Should return status 401 and success=false", done => {
         chai
             .request(server)
             .get("/employees/"+employeeJSON.TestData5.Id)
@@ -180,7 +180,7 @@ describe("/GET /employees/Id", () => {
 
 describe("/PUT /update/Id", () => { 
     
-    it("it should update employeeData successfully with valid token and Object Id returns status 200 and success=true", done => {
+    it("given employeeData and Valid token When updated Should return status 200 and success=true", done => {
         const inputBody = employeeJSON.TestData3;
         chai
             .request(server)
@@ -194,7 +194,7 @@ describe("/PUT /update/Id", () => {
             });
     });
 
-    it("it should not update employeeData with valid token and invalid Object Id returns status 404 and success=false", done => {
+    it("given invalidEmployeeData and Valid token When updated Should return status 404 and success=false", done => {
         const inputBody = employeeJSON.TestData3;
         chai
             .request(server)
@@ -208,7 +208,7 @@ describe("/PUT /update/Id", () => {
             });
     });
 
-    it("it should not update employeeData with invalid token and valid Object Id returns status 400 and success=false", done => {
+    it("given employeeData and invalid token When updated Should return status 400 and success=false", done => {
         const inputBody = employeeJSON.TestData3;
         chai
             .request(server)
@@ -223,7 +223,7 @@ describe("/PUT /update/Id", () => {
             });
     });
 
-    it("it should not update employeeData with empty and valid Object Id returns status 401 and success=false", done => {
+    it("given employeeData and empty token When updated Should return status 401 and success=false", done => {
         const inputBody = employeeJSON.TestData3;
         chai
             .request(server)
@@ -242,7 +242,7 @@ describe("/PUT /update/Id", () => {
 
 describe("/Delele /Id", () => { 
     
-    it("it should delete employeeData successfully with valid token and valid Object Id returns status 200 and success=true", done => {
+    it("given employeeId and validToken When deleted Should return status 200 and success=true", done => {
         chai
             .request(server)
             .delete("/delete/"+employeeJSON.TestData5.Id)
@@ -254,7 +254,7 @@ describe("/Delele /Id", () => {
             });
     });
 
-    it("it not should delete employeeData  with valid token and invalid and Object Id returns status 404 and success=false", done => {
+    it("given invalidEmployeeId and validToken When deleted Should return status 404 and success=false", done => {
         chai
             .request(server)
             .delete("/delete/"+employeeJSON.TestData6.Id)
@@ -266,7 +266,7 @@ describe("/Delele /Id", () => {
             });
     });
 
-    it("it not should delete employeeData  with invalid token and invalid and Object Id returns status 400 and success=false", done => {
+    it("given employeeId and invalidToken When deleted Should return status 400 and success=false", done => {
         chai
             .request(server)
             .delete("/delete/"+employeeJSON.TestData5.Id)
@@ -279,11 +279,11 @@ describe("/Delele /Id", () => {
             });
     });
 
-    it("it not should delete employeeData  with empty token and valid Object Id returns status 401 and success=false", done => {
+    it("given employeeId and emptyToken When deleted Should return status 401 and success=false", done => {
         chai
             .request(server)
             .delete("/delete/"+employeeJSON.TestData5.Id)
-            .set('Authorization', invalidToken)
+            .set('Authorization', empToken)
             .end((err, response) => {
                 response.should.have.status(401);
                 response.body.should.have.property('success').eq(false)

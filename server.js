@@ -3,7 +3,7 @@ const express = require('express');
 const dbconnect = require('./config/database.js');
 const logger = require('./logger/loggerCofig');
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger/swagger.json');
+const swaggerDocument = require('./swagger/swagger-output.json');
 require('../EmployeePayroll_app/server')
 
 // create express app

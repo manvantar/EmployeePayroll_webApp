@@ -7,7 +7,7 @@ module.exports = (app) => {
     app.post('/add', controllerEmployee.create);
 
     // Retrieve all employees
-    app.get('/employees',helper.checkToken, controllerEmployee.findAllEmployees);
+    app.get('/employees',  helper.checkToken, controllerEmployee.findAllEmployees);
 
     // Retrieve a single employee with employeeId
     app.get('/employees/:employeeId', helper.checkToken, controllerEmployee.findOneData);
