@@ -1,5 +1,5 @@
 {
-  "swagger": "2.0",
+  "swagger":"2.0",
   "info": {
     "title": "Employee Payroll Backend",
     "description": "Employee Registration form",
@@ -23,11 +23,10 @@
             "name": "create employee",
             "in": "body",
             "required": true,
-            "type": {
-                "emailId":"string",
-                "firstName":"string"
+            "schema": {
+                "$ref": "#/definitions/Employee"
             }
-        }
+          }
         ],
         "responses": {
           "201": {
@@ -59,7 +58,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "api_JWTkey": []
+          }
+        ]
       }
     },
     "/employees/{employeeId}": {
@@ -87,7 +91,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     },
     "/update/{employeeId}": {
@@ -105,7 +114,9 @@
             "name": "new employeeDetails",
             "in": "body",
             "required": true,
-            "type": "string"
+            "schema": {
+              "$ref": "#/definitions/Employee"
+          }
         }
         ],
         "responses": {
@@ -121,7 +132,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     },
     "/delete/{employeeId}": {
@@ -133,7 +149,7 @@
             "name": "employeeId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string"            
           }
         ],
         "responses": {
@@ -149,7 +165,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     },
     "/login": {
@@ -161,7 +182,9 @@
             "name": "Credentials",
             "in": "body",
             "required": true,
-            "emailId": "emailId"
+            "schema": {
+              "$ref": "#/definitions/Login"
+          }
         }
         ],
         "responses": {
@@ -172,5 +195,41 @@
       }
     }
   },
-  "definitions": {}
+  "securityDefinitions": {
+    "JWT": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Employee": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "emailId": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Login":{
+      "type": "object",
+      "properties": {
+        "emailId": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }  
+    }
+  }
 }
