@@ -1,6 +1,6 @@
 const { joiValidator } = require('../middleware/validation.js');
 const employeeService = require('../services/employee.js');
-//const logger = require('../../config/logger.js');
+const logger = require('../../logger/loggerConfig.js');
 
 class Controll {
 
@@ -65,7 +65,7 @@ class Controll {
         employeeService.findDataId(employeObjectId, (error, userData) => {
             
             if (error) {
-                //logger.error("Employee not found with id " + employeObjectId);
+                logger.error("Employee not found with id " + employeObjectId);
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
                         success: false,
