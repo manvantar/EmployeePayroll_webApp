@@ -1,9 +1,9 @@
 const { createLogger, transports, format} =require('winston');
-//const file=require('')
+
 const logger =createLogger({
     transports:[
         new transports.File({
-            filename: 'logger/info.logs',
+            filename: 'logger/info.log',
             level:'info',
             format:format.combine(format.timestamp(),format.simple()) 
         })
