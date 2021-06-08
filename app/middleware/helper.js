@@ -1,6 +1,7 @@
 const { sign } = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
+const logger= require("../../logger/loggerCofig");
 
 class Helper {
 
@@ -30,7 +31,8 @@ class Helper {
     checkToken = (req, res, next) => {
         let token = req.get("authorization");
         if (token) {
-            token = token.slice(7);
+            //if(token.length===176);
+                token = token.slice(7);
             jwt.verify(token, process.env.JWT_KEY, err => {
                 if (err) {
                     return res.status(400).send({

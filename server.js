@@ -19,13 +19,7 @@ app.use(express.urlencoded({ extended: true }))
 // parse requests of content-type - application/json
 app.use(express.json())     
 
-
-var options = {
-    swaggerOptions:{
-        url: 'http://petstore.swagger.io/v2/swagger.json'
-  }
-}
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument,options));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get('/', (req, res) => {
     res.json({"message": "Welcome to EmployeePlayRoll application Backend"});

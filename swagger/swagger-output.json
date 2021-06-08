@@ -49,6 +49,9 @@
 
         ],
         "responses": {
+          "200":{
+            "description":"successfull"
+          },
           "400": {
             "description": "Bad Request"
           },
@@ -61,7 +64,7 @@
         },
         "security": [
           {
-            "api_JWTkey": []
+            "JWT": []
           }
         ]
       }
@@ -79,6 +82,9 @@
           }
         ],
         "responses": {
+          "200":{
+            "description":"successfull"
+          },
           "400": {
             "description": "Bad Request"
           },
@@ -120,6 +126,9 @@
         }
         ],
         "responses": {
+          "200":{
+            "description":"successfull"
+          },
           "400": {
             "description": "Bad Request"
           },
@@ -153,6 +162,9 @@
           }
         ],
         "responses": {
+          "200":{
+            "description":"successfull"
+          },
           "400": {
             "description": "Bad Request"
           },
@@ -188,6 +200,9 @@
         }
         ],
         "responses": {
+          "200":{
+            "description":"successfull"
+          },
           "404": {
             "description": "Not Found"
           }
