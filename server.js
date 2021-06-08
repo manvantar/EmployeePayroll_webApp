@@ -31,4 +31,4 @@ require('./app/routes/employee')(app);
 // listen for requests
 const port = process.env.SERVER_PORT;
 module.exports= app.listen(port, () =>
-console.log("Server is listening on port "+port));
+logger.info("Server is listening on port "+port));

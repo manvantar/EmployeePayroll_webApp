@@ -31,8 +31,7 @@ class Helper {
     checkToken = (req, res, next) => {
         let token = req.get("authorization");
         if (token) {
-            //if(token.length===176);
-                token = token.slice(7);
+            token = token.slice(7);
             jwt.verify(token, process.env.JWT_KEY, err => {
                 if (err) {
                     return res.status(400).send({
