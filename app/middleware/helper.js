@@ -1,7 +1,7 @@
 const { sign } = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
-const logger= require("../../logger/loggerCofig");
+const logger= require("../../config/logger.js");
 
 class Helper {
 

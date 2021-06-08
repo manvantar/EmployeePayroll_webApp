@@ -1,11 +1,9 @@
 require("dotenv").config();
 const express = require('express');
 const dbconnect = require('./config/database.js');
-const logger = require('./logger/loggerCofig');
+const logger = require('./config/logger.js');
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger/swagger-output.json');
-
-require('../EmployeePayroll_app/server')
+const swaggerDocument = require('./swagger/swagger.json');
 
 // create express app
 const app = express();
@@ -19,8 +17,10 @@ app.use(express.urlencoded({ extended: true }))
 // parse requests of content-type - application/json
 app.use(express.json())     
 
+//swagger requests to app
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+//api for welcome message
 app.get('/', (req, res) => {
     res.json({"message": "Welcome to EmployeePlayRoll application Backend"});
 });

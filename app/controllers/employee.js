@@ -1,6 +1,6 @@
 const { joiValidator } = require('../middleware/validation.js');
 const employeeService = require('../services/employee.js');
-const logger = require('../../logger/loggerCofig.js');
+const logger = require('../../config/logger.js');
 
 class Controll {
 

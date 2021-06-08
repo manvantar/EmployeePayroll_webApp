@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 
 /**
  * @description Create Schema model of Employee Data with Schema level data valiadtion
