@@ -25,8 +25,10 @@ Also, be sure to have `git` available in your PATH, `npm` might need it (You can
     6.14.13
 
 ## Install
-  $ git clone https://github.com/manvantar/EmployeePayroll_webApp.git
+  $ git clone https://github.com/manvantar/EmployeePayroll_webApp.git 
+
   $ cd EmployeePayroll_webApp
+  
   $ npm install
 
 ## Configure app 
