@@ -1,0 +1,30 @@
+{
+    "TestData1": 
+      {
+        "emailId": "manukvshetty2@gmail.com", "password": "n@@nU2897"
+      },
+      "TestData2":{
+        "emailId": "manuk22121222@gmail.com", "password": "n@@nU2897" 
+      },
+      "TestData3":{
+        "firstName": "Manu",
+        "lastName": "KV",
+        "emailId": "manukvshetty2@gmail.com",
+        "password": "n@@nU2897"
+      },
+      "TestData4":{
+        "firstName": "Manu",
+              "lastName": "KV",
+              "emailId": "manukvshetty2@gmail.com",
+              "password": "n@2897"
+      },
+      "TestData5":{
+        "Id":"60bbb84c5a2c4120860089e3"
+      },
+      "TestData6":{
+        "Id":"60b7ba830492c759554af"
+      },
+      "TestData7":{
+        "Id":"60be06a88a4d07126f83911f"
+      }
+  }
