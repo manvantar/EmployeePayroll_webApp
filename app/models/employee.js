@@ -4,13 +4,13 @@ const mongoose = require('mongoose');
  * @description Create Schema model of Employee Data with Schema level data valiadtion
  */
 const EmployeeSchema = mongoose.Schema({
+    emailId: { type: String, required: true, unique: true, validate: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$/ },
     firstName: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ },
     lastName: { type: String, required: true, validate: /^[a-zA-Z ]{1,30}$/ },
     company: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ },
     designation: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ },
     salary: { type: Number, required: true, validate: /^[0-9]{3,}$/ },
-    city: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ },
-    emailId: { type: String, required: true, unique: true, validate: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$/ },
+    city: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ }, 
     password: { type: String, required: true }
 }, {
     timestamps: false,
@@ -27,7 +27,6 @@ class RegisterModel {
     * @return callback is used to callback Services includes error message or data
     */
     create = (userdata, callback) => {
-        console.log(userdata);
         const employee = new Employee({
             firstName: userdata.firstName,
             lastName: userdata.lastName,
