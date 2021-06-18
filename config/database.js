@@ -8,9 +8,10 @@ function dbconnect(){
 
     mongoose.promise;
     mongoose.connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+        useCreateIndex: true
     });
 
     return mongoose.connection

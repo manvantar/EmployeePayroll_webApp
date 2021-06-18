@@ -1,4 +1,4 @@
-const { joiValidator } = require('../middleware/validation.js');
+const joiValidator = require('../middleware/validation.js');
 const employeeService = require('../services/employee.js');
 const logger = require('../../config/logger.js');
 
@@ -10,7 +10,7 @@ class Controll {
      * @param res is used to send the Response
      */
     create = (req, res) => {
-        var validationResult = joiValidator.validate(req.body);
+        var validationResult = joiValidator.joiEmployeeValidator.validate(req.body);
         if (validationResult.error) {
             return res.status(400).send({
                 success: false,
@@ -127,7 +127,7 @@ class Controll {
       * @param res is used to send the Response
       */
     update = (req, res) => {
-        var validationResult = joiValidator.validate(req.body);
+        var validationResult = joiValidator.joiEmployeeValidator.validate(req.body);
         if (validationResult.error) {
             return res.status(400).send({
                 success: false,
@@ -157,27 +157,6 @@ class Controll {
         })
     };
 
-    /**
-     * @description to login the Employee Data
-     * @param req is request sent from http having emailId and Password
-     * @param res is used to send the Response
-     */
-    login = (req, res) => {
-        let credentials = req.body;
-        employeeService.checkLoginDetails(credentials, (error, data) => {
-            if (error) {
-                return res.status(404).send({
-                    success: false,
-                    message: error
-                });
-            }
-            res.send({
-                success: true,
-                message: "logged in successfully",
-                token: data
-            });
-        })
-    }
 }
 
 module.exports = new Controll();
