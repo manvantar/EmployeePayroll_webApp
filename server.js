@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require('express');
+var cors = require('cors')
 const dbconnect = require('./config/database.js');
 const logger = require('./config/logger.js');
 const swaggerUi = require('swagger-ui-express');
@@ -16,6 +17,9 @@ app.use(express.urlencoded({ extended: true }))
 
 // parse requests of content-type - application/json
 app.use(express.json())     
+
+// parse requests of content-type - cors
+app.use(cors())
 
 //swagger requests to app
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

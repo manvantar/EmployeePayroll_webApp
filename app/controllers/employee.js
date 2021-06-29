@@ -10,6 +10,7 @@ class Controll {
      * @param res is used to send the Response
      */
     create = (req, res) => {
+	logger.info(req);
         var validationResult = joiValidator.joiEmployeeValidator.validate(req.body);
         if (validationResult.error) {
             return res.status(400).send({
@@ -48,7 +49,7 @@ class Controll {
                         message: "Some error occured while fetching Data"
                     });
                 }
-                res.send({
+                res.status(200).send({
                     success: true,
                     message: "Retrived all the employee data successfully",
                     EmployeeData: EmployeeData
