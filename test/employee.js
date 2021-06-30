@@ -36,7 +36,7 @@ describe("POST /login", () => {
     })
 })
 
-describe("POST /add", () => {
+describe("POST /add/employee", () => {
     it("given new employeeData When added Should return status 200, success=true", (done) => {
         const inputBody = employeeJSON.TestData3;
         chai.request(server)
@@ -53,7 +53,7 @@ describe("POST /add", () => {
     it("given new employeeData When added Should return status 400, success=false", (done) => {
         const inputBody = employeeJSON.TestData4;
         chai.request(server)
-            .post("/add")
+            .post("/add/employee")
             .send(inputBody)
             .end((error, response) => {
                 response.should.have.status(400);
@@ -178,13 +178,13 @@ describe("/GET /employees/Id", () => {
     });
 });
 
-describe("/PUT /update/Id", () => { 
+describe("/PUT /update/employee/Id", () => { 
     
     it("given employeeData and Valid token When updated Should return status 200 and success=true", done => {
         const inputBody = employeeJSON.TestData3;
         chai
             .request(server)
-            .put("/update/"+employeeJSON.TestData5.Id)
+            .put("/update/employee/"+employeeJSON.TestData5.Id)
             .set('Authorization', 'Bearar ' + jwToken)
             .send(inputBody)
             .end((err, response) => {
@@ -198,7 +198,7 @@ describe("/PUT /update/Id", () => {
         const inputBody = employeeJSON.TestData3;
         chai
             .request(server)
-            .put("/update/"+employeeJSON.TestData6.Id)
+            .put("/update/employee/"+employeeJSON.TestData6.Id)
             .set('Authorization', 'Bearar ' + jwToken)
             .send(inputBody)
             .end((err, response) => {
@@ -212,7 +212,7 @@ describe("/PUT /update/Id", () => {
         const inputBody = employeeJSON.TestData3;
         chai
             .request(server)
-            .put("/update/"+employeeJSON.TestData5.Id)
+            .put("/update/employee/"+employeeJSON.TestData5.Id)
             .set('Authorization', 'Bearar ' + invalidToken)
             .send(inputBody)
             .end((err, response) => {
@@ -227,7 +227,7 @@ describe("/PUT /update/Id", () => {
         const inputBody = employeeJSON.TestData3;
         chai
             .request(server)
-            .put("/update/"+employeeJSON.TestData5.Id)
+            .put("/update/employee/"+employeeJSON.TestData5.Id)
             .set('Authorization', empToken)
             .send(inputBody)
             .end((err, response) => {
@@ -240,12 +240,12 @@ describe("/PUT /update/Id", () => {
     
 });
 
-describe("/Delele /Id", () => { 
+describe("/Delele /delete/employee/Id", () => { 
     
     it("given employeeId and validToken When deleted Should return status 200 and success=true", done => {
         chai
             .request(server)
-            .delete("/delete/"+employeeJSON.TestData5.Id)
+            .delete("/delete/employee/"+employeeJSON.TestData5.Id)
             .set('Authorization', 'Bearar ' + jwToken)
             .end((err, response) => {
                 response.should.have.status(200);
@@ -257,7 +257,7 @@ describe("/Delele /Id", () => {
     it("given invalidEmployeeId and validToken When deleted Should return status 404 and success=false", done => {
         chai
             .request(server)
-            .delete("/delete/"+employeeJSON.TestData6.Id)
+            .delete("/delete/employee/"+employeeJSON.TestData6.Id)
             .set('Authorization', 'Bearar ' + jwToken)
             .end((err, response) => {
                 response.should.have.status(404);
@@ -269,7 +269,7 @@ describe("/Delele /Id", () => {
     it("given employeeId and invalidToken When deleted Should return status 400 and success=false", done => {
         chai
             .request(server)
-            .delete("/delete/"+employeeJSON.TestData5.Id)
+            .delete("/delete/employee/"+employeeJSON.TestData5.Id)
             .set('Authorization', 'Bearar ' + invalidToken)
             .end((err, response) => {
                 response.should.have.status(400);
@@ -282,7 +282,7 @@ describe("/Delele /Id", () => {
     it("given employeeId and emptyToken When deleted Should return status 401 and success=false", done => {
         chai
             .request(server)
-            .delete("/delete/"+employeeJSON.TestData5.Id)
+            .delete("/delete/employee/"+employeeJSON.TestData5.Id)
             .set('Authorization', empToken)
             .end((err, response) => {
                 response.should.have.status(401);
