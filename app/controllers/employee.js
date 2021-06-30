@@ -112,7 +112,7 @@ class Controll {
                 }
                 return res.status(500).send({
                     success: false,
-                    message: "Error retrieving employee with id " + employeObjectId
+                    message: error+" "+ employeObjectId
                 });
             }
             res.send({

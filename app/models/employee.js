@@ -70,10 +70,9 @@ class RegisterModel {
     * @return callback is used to callback Services with or without error message
     */
     deleteDataUsingId = (userDataID, callback) => {
-        Employee.findById(userDataID, (error,data) => {
-            
-            if(data){
-                console.log(Employee.findByIdAndDelete(userDataID));
+        Employee.findByIdAndDelete(userDataID, (error, data) => {
+            if (!data && !error) {
+                error = "no EmployeeDataFound with ObjectId";
             }
             return (error) ? callback(error) : callback(null);
         })
