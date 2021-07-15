@@ -10,8 +10,8 @@ const EmployeeSchema = mongoose.Schema({
     company: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ },
     designation: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ },
     salary: { type: Number, required: true, validate: /^[0-9]{3,}$/ },
-    city: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ }, 
-    , {
+    city: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ }
+    ,
     timestamps: false,
     versionKey: false
 });
