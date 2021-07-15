@@ -23,14 +23,13 @@ class UserControll {
             if (error) {
                 return res.status(500).send({
                     success: false,
-                    message: "Error occured while creating User",
-                    error: error.message
+                    message: "User already Exists",
                 });
             }
             res.status(201).send({
                 success: true,
                 data: resultdata,
-                message: "User Data Inserted successfully"
+                message: "User Registered successfully"
             })
         })
     }

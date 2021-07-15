@@ -11,8 +11,7 @@ const EmployeeSchema = mongoose.Schema({
     designation: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ },
     salary: { type: Number, required: true, validate: /^[0-9]{3,}$/ },
     city: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ }, 
-    password: { type: String, required: true }
-}, {
+    , {
     timestamps: false,
     versionKey: false
 });
@@ -31,7 +30,6 @@ class RegisterModel {
             firstName: userdata.firstName,
             lastName: userdata.lastName,
             emailId: userdata.emailId,
-            password: userdata.password,
             city:userdata.city,
             salary:userdata.salary,
             company:userdata.company,
@@ -88,7 +86,6 @@ class RegisterModel {
             firstName: newUserData.firstName,
             lastName: newUserData.lastName,
             email: newUserData.email,
-            password: newUserData.password,
             city:userdata.city,
             salary:userdata.salary,
             company:userdata.company,

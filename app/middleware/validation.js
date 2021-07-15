@@ -8,8 +8,7 @@ class Validation {
     designation: joi.string().alphanum().min(2).max(30),
     salary: joi.number().min(100).max(999999999),
     city: joi.string().alphanum().min(2).max(30),
-    emailId: joi.string().email().required(),
-    password: joi.string().pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})')).required(),
+    emailId: joi.string().email().required()
   });
 
   //valiadtes newUserdata
