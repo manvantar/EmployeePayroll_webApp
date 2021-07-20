@@ -279,6 +279,9 @@
         "emailId": {
           "type": "string"
         },
+	"mobile":{
+	  "type": "number"
+	},
         "company":{
           "type": "string"
         } ,
