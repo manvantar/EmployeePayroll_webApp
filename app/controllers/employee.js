@@ -11,15 +11,22 @@ class Controll {
      */
     create = (req, res) => {
 	logger.info(req);
-        var validationResult = joiValidator.joiEmployeeValidator.validate(req.body);
+	const employeeData={firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            emailId: req.body.emailId,
+            city: req.body.city,
+            salary: req.body.salary,
+	    mobile: req.body.mobile,
+            company: req.body.company,
+            designation: req.body.designation}
+        const validationResult = joiValidator.joiEmployeeValidator.validate(employeeData);
         if (validationResult.error) {
             return res.status(400).send({
                 success: false,
                 message: validationResult.error.details[0].message
             });
         }
-        let userData = req.body;
-        employeeService.create(userData, (error, resultdata) => {
+        employeeService.create(employeeData, (error, resultdata) => {
             if (error) {
                 return res.status(500).send({
                     success: false,
@@ -65,7 +72,7 @@ class Controll {
      * @param res is used to send the Response
      */
     findOneData = (req, res) => {
-        let employeObjectId = req.params.employeeId;
+        const employeObjectId = req.params.employeeId;
         employeeService.findDataId(employeObjectId, (error, userData) => {
             
             if (error) {
@@ -101,7 +108,7 @@ class Controll {
      * @param res is used to send the Response
      */
     delete = (req, res) => {
-        let employeObjectId = req.params.employeeId;
+        const employeObjectId = req.params.employeeId;
         employeeService.deleteDataUsingId(employeObjectId, error => {
             if (error) {
                 if (error.kind === 'ObjectId') {
@@ -128,16 +135,23 @@ class Controll {
       * @param res is used to send the Response
       */
     update = (req, res) => {
-        var validationResult = joiValidator.joiEmployeeValidator.validate(req.body);
+	const employeeData={firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            emailId: req.body.emailId,
+            city: req.body.city,
+            salary: req.body.salary,
+	    mobile: req.body.mobile,
+            company: req.body.company,
+            designation: req.body.designation}
+        const validationResult = joiValidator.joiEmployeeValidator.validate(employeeData);
         if (validationResult.error) {
             return res.status(400).send({
                 success: false,
                 message: validationResult.error.details[0].message
             });
         }
-        let userData = req.body;
         let existingUserId = req.params.employeeId;
-        employeeService.updateByID(existingUserId, userData, (error, resultData) => {
+        employeeService.updateByID(existingUserId, employeeData, (error, resultData) => {
             if (error) {
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({

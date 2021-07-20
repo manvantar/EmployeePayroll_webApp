@@ -8,7 +8,8 @@ class Validation {
     designation: joi.string().alphanum().min(2).max(30),
     salary: joi.number().min(100).max(999999999),
     city: joi.string().alphanum().min(2).max(30),
-    emailId: joi.string().email().required()
+    emailId: joi.string().email().required(),
+    mobile: joi.number().min(1000000000).required()
   });
 
   //valiadtes newUserdata

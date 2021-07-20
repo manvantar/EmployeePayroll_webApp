@@ -10,7 +10,8 @@ const EmployeeSchema = mongoose.Schema({
     company: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ },
     designation: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ },
     salary: { type: Number, required: true, validate: /^[0-9]{3,}$/ },
-    city: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ }
+    city: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ },
+    mobile:{type: Number, required: true, validate: /^[0-9]{10,}$/}
     ,
     timestamps: false,
     versionKey: false
@@ -32,6 +33,7 @@ class RegisterModel {
             emailId: userdata.emailId,
             city:userdata.city,
             salary:userdata.salary,
+	    mobile:userdata.mobile,
             company:userdata.company,
             designation:userdata.designation
         });
@@ -85,11 +87,12 @@ class RegisterModel {
         Employee.findByIdAndUpdate(userId, {
             firstName: newUserData.firstName,
             lastName: newUserData.lastName,
-            email: newUserData.email,
-            city:userdata.city,
-            salary:userdata.salary,
-            company:userdata.company,
-            designation:userdata.designation
+            emailId: newUserData.emailId,
+            city: newUserData.city,
+            salary: newUserData.salary,
+	    mobile: newUserData.mobile,
+            company: newUserData.company,
+            designation: newUserData.designation
         }, { new: true }, (error, data) => {
             return (error) ? callback(error, null) : callback(null, data);
         });
