@@ -43,5 +43,17 @@
       },
       "TestData10":{
         "Id":"60f6d366c25f4d1163ae9711"
+      },
+      "UserData1":{
+        "firstName": "Manu",
+        "lastName": "KV",
+        "emailId": "manukvshettyTest3@gmail.com",
+        "password": "2897n@@nU"
+      },
+      "UserData2":{
+        "firstName": "Manu",
+        "lastName": "KV",
+        "emailId": "manukvshettyTest1gmail.com",
+        "password": "2897n!!nU"
       }
   }

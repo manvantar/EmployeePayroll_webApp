@@ -8,7 +8,48 @@ const fs = require('fs');
 let rawdata = fs.readFileSync('test/employee.json');
 let employeeJSON = JSON.parse(rawdata);
 let jwToken='';
+
+describe("POST /registration", () => {
     
+    it("given new UserData When added Should return status 200, success=true", (done) => {
+        const inputBody = employeeJSON.UserData1;
+        chai.request(server)
+            .post("/registration")
+            .send(inputBody)
+            .end((error, response) => {
+                response.should.have.status(201);
+                response.body.should.have.property('success').eq(true);
+                response.body.should.have.property('message').eq("User Registered successfully");
+                done();
+            });
+    })
+
+    it("given new UserData When added Should return status 500, success=false", (done) => {
+        const inputBody = employeeJSON.UserData1;
+        chai.request(server)
+            .post("/registration")
+            .send(inputBody)
+            .end((error, response) => {
+                response.should.have.status(500);
+                response.body.should.have.property('success').eq(false);
+                response.body.should.have.property('message').eq("User already Exists");
+                done();
+            });
+    })
+
+    it("given new UserData When added Should return status 400, success=false", (done) => {
+        const inputBody = employeeJSON.UserData2;
+        chai.request(server)
+            .post("/registration")
+            .send(inputBody)
+            .end((error, response) => {
+                response.should.have.status(400);
+                response.body.should.have.property('success').eq(false);
+                done();
+            });
+    })
+})
+
 beforeEach(done => {
     chai
         .request(server)
