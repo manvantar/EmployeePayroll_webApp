@@ -33,7 +33,7 @@ class RegisterModel {
             emailId: userdata.emailId,
             city:userdata.city,
             salary:userdata.salary,
-	    mobile:userdata.mobile,
+	        mobile:userdata.mobile,
             company:userdata.company,
             designation:userdata.designation
         });

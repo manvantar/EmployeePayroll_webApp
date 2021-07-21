@@ -10,7 +10,7 @@ class Controll {
      * @param res is used to send the Response
      */
     create = (req, res) => {
-	logger.info(req);
+	// logger.info(req);
 	const employeeData={firstName: req.body.firstName,
             lastName: req.body.lastName,
             emailId: req.body.emailId,

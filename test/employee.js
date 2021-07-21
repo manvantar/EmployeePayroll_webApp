@@ -7,6 +7,53 @@ chai.use(chaiHttp);
 const fs = require('fs');
 let rawdata = fs.readFileSync('test/employee.json');
 let employeeJSON = JSON.parse(rawdata);
+let jwToken='';
+    
+beforeEach(done => {
+    chai
+        .request(server)
+        .post("/login")
+        .send(employeeJSON.TestData1)
+        .end((err, res) => {
+            jwToken = res.body.token;
+            res.should.have.status(200);
+            done();
+        });
+});
+
+let invalidToken=jwToken.slice(12);
+let empToken='';
+
+describe("POST /add/employee", () => {
+    it("given new employeeData When added Should return status 200, success=true", (done) => {
+        const inputBody = employeeJSON.TestData3;
+        chai.request(server)
+            .post("/add/employee")
+            .set('Authorization', 'Bearar ' + jwToken)
+            .send(inputBody)
+            .end((error, response) => {
+                response.should.have.status(201);
+                response.body.should.have.property('success').eq(true);
+                response.body.should.have.property('message').eq("Employee Data Inserted successfully");
+                done();
+            });
+    })
+
+    it("given new employeeData When added Should return status 400, success=false", (done) => {
+        const inputBody = employeeJSON.TestData4;
+        chai.request(server)
+            .post("/add/employee")
+            .set('Authorization', 'Bearar ' + jwToken)
+            .send(inputBody)
+            .end((error, response) => {
+                response.should.have.status(400);
+                response.body.should.have.property('success').eq(false);
+                response.body.should.have.property('message')
+                done();
+            });
+    })
+})
+
 
 describe("POST /login", () => {
     it("given new inputBody When loggedIn should return status 200, success=true", (done) => {
@@ -35,51 +82,6 @@ describe("POST /login", () => {
             });
     })
 })
-
-describe("POST /add/employee", () => {
-    it("given new employeeData When added Should return status 200, success=true", (done) => {
-        const inputBody = employeeJSON.TestData3;
-        chai.request(server)
-            .post("/add")
-            .send(inputBody)
-            .end((error, response) => {
-                response.should.have.status(201);
-                response.body.should.have.property('success').eq(true);
-                response.body.should.have.property('message').eq("Employee Data Inserted successfully");
-                done();
-            });
-    })
-
-    it("given new employeeData When added Should return status 400, success=false", (done) => {
-        const inputBody = employeeJSON.TestData4;
-        chai.request(server)
-            .post("/add/employee")
-            .send(inputBody)
-            .end((error, response) => {
-                response.should.have.status(400);
-                response.body.should.have.property('success').eq(false);
-                response.body.should.have.property('message')
-                done();
-            });
-    })
-})
-
-let jwToken='';
-    
-beforeEach(done => {
-    chai
-        .request(server)
-        .post("/login")
-        .send(employeeJSON.TestData1)
-        .end((err, res) => {
-            jwToken = res.body.token;
-            res.should.have.status(200);
-            done();
-        });
-});
-
-let invalidToken=jwToken.slice(12);
-let empToken='';
 
 describe("/GET /employees", () => { 
     
@@ -129,7 +131,7 @@ describe("/GET /employees/Id", () => {
     it("given ObjectID and Valid token When retrived Should return status 200 and success=true", done => {
         chai
             .request(server)
-            .get("/employees/"+employeeJSON.TestData7.Id)
+            .get("/employees/"+employeeJSON.TestData10.Id)
             .set('Authorization', 'Bearar ' + jwToken)
             .end((err, response) => {
                 response.should.have.status(200);
@@ -181,7 +183,7 @@ describe("/GET /employees/Id", () => {
 describe("/PUT /update/employee/Id", () => { 
     
     it("given employeeData and Valid token When updated Should return status 200 and success=true", done => {
-        const inputBody = employeeJSON.TestData3;
+        const inputBody = employeeJSON.TestData8;
         chai
             .request(server)
             .put("/update/employee/"+employeeJSON.TestData5.Id)
