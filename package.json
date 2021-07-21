@@ -4,7 +4,6 @@
   "description": "Employee Payroll JSON Application",
   "main": "server.js",
   "scripts": {
-    "pretest": "eslint --ignore-path .gitignore .",
     "start": "nodemon server.js",
     "test": "DEBUG=true nyc mocha ./test/**/*.js --exit --inspect=0.0.0.0:9229 --timeout 120000"
   },
@@ -12,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/joi": "^17.1.1",
+    "babel-eslint": "^10.1.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
