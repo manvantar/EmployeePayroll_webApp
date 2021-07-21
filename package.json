@@ -4,6 +4,7 @@
   "description": "Employee Payroll JSON Application",
   "main": "server.js",
   "scripts": {
+    "pretest": "eslint --ignore-path .gitignore .",
     "start": "nodemon server.js",
     "test": "DEBUG=true nyc mocha ./test/**/*.js --exit --inspect=0.0.0.0:9229 --timeout 120000"
   },
@@ -27,6 +28,9 @@
   "devDependencies": {
     "chai": "^4.3.4",
     "chai-http": "^4.3.0",
+    "eslint": "^7.31.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4",
     "mocha": "^8.4.0",
     "nodemon": "^2.0.7",
     "nyc": "^15.1.0",

@@ -33,3 +33,4 @@ coverage
 .grunt
 
 # Bo
+node_modules/
