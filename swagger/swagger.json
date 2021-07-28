@@ -5,7 +5,7 @@
     "description": "Employee Registration form",
     "version": "1.0.0"
   },
-  "host": "localhost:7000",
+  "host": "13.232.128.126:7000",
   "basePath": "/",
   "tags": [],
   "schemes": [
